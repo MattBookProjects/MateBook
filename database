@@ -1,0 +1,82 @@
+TABLE USER
+-id: int PK auto increment
+-username: varchar unique
+-password: varchar
+-active: boolean
+
+TABLE POSTS
+-id: int PK auto increment
+-user_id: int FK USER.id
+-content: varchar
+-datetime: datetime
+
+TABLE COMMENT
+-id: int PK auto increment
+-post_id: int FK POST.id
+-user_id: int FK USER.id
+-content: varchar
+-datetime: datetime
+
+TABLE RESPONSE_TO_COMMENT
+-id: int PK auto increment
+-comment_id: int FK COMMENT.id
+-content: varchar
+-datetime: datetime
+
+TABLE LIKE_FOR_POST
+-id: int PK auto increment
+-post_id: int FK POST.id
+-user_id: int FK USER.id
+
+TABLE LIKE_FOR_COMMENT
+-id: int PK auto increment
+-comment_id: int FK COMMENT.id
+-user_id: int FK USER.id
+
+TABLE LIKE_FOR_RESPONSE_TO_COMMENT
+-id: int PK auto increment
+-response_to_comment_id: int FK RESPONSE_TO_COMMENT.id
+-user_id: int FK USER.id
+
+TABLE FOLLOW
+-id: int PK auto increment
+-follower: int FK USER.id
+-followed: int FK USER.id
+-time: datetime
+-notified: boolean
+
+TABLE CONVERSATION
+-id: int PK auto increment
+-name: varchar NULL
+
+TABLE MESSAGE
+-id: int PK auto increment
+-conversation_id: int FK CONVERSATION.id
+-user_id: int FK USER.id
+-content: varchar
+-time: datetime
+
+TABLE MESSAGE_READ
+-id: int PK auto increment
+-message_id: int FK MESSAGE.id
+-user_id: int FK USER.id
+-notified: boolean
+
+TABLE FRIENDSHIP
+-id: int PK auto increment
+
+TABLE USER_FRIENDSHIP
+-id: int PK auto increment
+-user_id: int FK USER.id
+-friendship_id: int FK FRIENDSHIP.id
+
+TABLE FRIEND_REQUEST
+-id: int PK auto increment
+-requesting: int FK USER.id
+-requested: int FK USER.id
+-time: datetime
+-notified: boolean
+
+
+
+
