@@ -7,8 +7,28 @@ POST: { username, password, firstName, lastName }
 "/login":
 POST: { username, password }
 
-"/posts":
-GET:
+"/posts(?(followed=true)or(friend=true)":
+GET: 
+{
+    { 
+        id,
+        content, 
+        time, 
+        author: { 
+            first_name, 
+            last_name, 
+            id, 
+            profile_picture
+        },
+        edited?
+        media?: {
+            {
+                type,
+                media_string
+            }
+        }
+    }
+}
 POST: { content }
 
 "/posts/<id:int>":
@@ -17,6 +37,26 @@ DELETE
 
 "/posts/<id:int>/comments":
 GET:
+{
+    { 
+        id,
+        content, 
+        time, 
+        author: { 
+            first_name, 
+            last_name, 
+            id, 
+            profile_picture
+        },
+        edited?
+        media?: {
+            {
+                type,
+                media_string
+            }
+        }
+    }
+}
 POST: { content }
 
 "/posts/<id:int>/comments/<id:int>":
@@ -24,11 +64,48 @@ PUT: { content },
 DELETE
 
 "/posts/<id:int>/comments/<id:int>/responses":
-GET: 
-POST: { content }
+GET:
+{
+    { 
+        id,
+        content, 
+        time, 
+        author: { 
+            first_name, 
+            last_name, 
+            id, 
+            profile_picture
+        },
+        edited?
+        media?: {
+            {
+                type,
+                media_string
+            }
+        }
+    }
+}
+POST: { content, media? }
 
 "/posts/<id:int/comments/<id:int>/responses/<id:int>":
-PUT: { content }
+PUT: { content, media? }
 DELETE
+
+"/users?(name&friend&followed&follower)
+GET:
+{
+    {
+        id,
+        first_name,
+        last_name,
+        profile_picture,
+        friend,
+        followed,
+        follower,
+        num_of_followers
+    }
+}
+
+"/users/<id:int>"
 
 
