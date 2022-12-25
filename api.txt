@@ -204,4 +204,25 @@ DELETE
 POST
 DELETE
 
+"/conversations/<id:int>/messesges/"
+GET:
+{
+    {
+        id,
+        author: 
+        {
+            first_name,
+            last_name,
+            profile_picture
+        }
+        content,
+        time,
+        media? :
+        {
+            type,
+            media_string
+        }
+    }
+}
+
 
