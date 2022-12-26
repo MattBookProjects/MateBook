@@ -1,0 +1,235 @@
+"/":
+GET: returns html
+
+"/register":
+POST: { username, password, firstName, lastName }
+
+"/login":
+POST: { username, password }
+
+"/posts(?(filter=followed/friends/all)&(sortedby=(likes/recent)":
+GET: 
+{
+    { 
+        id,
+        content, 
+        time, 
+        author: { 
+            first_name, 
+            last_name, 
+            id, 
+            profile_picture
+        },
+        edited?
+        media?: {
+            {
+                type,
+                media_string
+            }
+        }
+    }
+}
+POST: { content }
+
+"/posts/<id:int>":
+PUT: { content },
+DELETE
+
+"/posts/<id:int>/comments(?(sorted=(likes/recent/followed/friends)"
+GET:
+{
+    { 
+        id,
+        content, 
+        time, 
+        author: { 
+            first_name, 
+            last_name, 
+            id, 
+            profile_picture
+        },
+        edited?
+        media?: {
+            {
+                type,
+                media_string
+            }
+        }
+    }
+}
+POST: { content }
+
+"/posts/<id:int>/comments/<id:int>":
+PUT: { content },
+DELETE
+
+"/posts/<id:int>/comments/<id:int>/responses":
+GET:
+{
+    { 
+        id,
+        content, 
+        time, 
+        author: { 
+            first_name, 
+            last_name, 
+            id, 
+            profile_picture
+        },
+        edited?
+        media?: {
+            {
+                type,
+                media_string
+            }
+        }
+    }
+}
+POST: { content, media? }
+
+"/posts/<id:int/comments/<id:int>/responses/<id:int>":
+PUT: { content, media? }
+DELETE
+
+"/users?(name&friend&followed&follower)":
+GET:
+{
+    {
+        id,
+        first_name,
+        last_name,
+        profile_picture,
+        is_friend,
+        is_followed,
+        is_follower,
+        num_of_followers
+    }
+}
+
+"/users/<id:int>":
+GET:
+{
+    id,
+    first_name,
+    last_name,
+    profile_picture,
+    is_friend,
+    is_followed,
+    is_follower,
+    num_of_followers,
+    posts: 
+    {
+        {
+            id,
+            content,
+            media?: {
+                type,
+                media_string
+            },
+            time,
+            edited?,
+            author: {
+                id,
+                first_name,
+                last_name,
+                profile_picture
+            }
+        }    
+    }
+}
+PUT:
+{
+    profile_picture
+}
+
+"/users/<id:int>/followers/" 
+POST:
+{
+    id
+}
+GET:
+{
+    {
+        id,
+        first_name,
+        last_name,
+        profile_picture,
+        num_of_followers
+    }
+}
+
+"/users/<id:int>/followers/<id:int>"
+DELETE
+
+"users/<id:int>/followed"
+GET:
+{
+    {
+        id,
+        first_name,
+        last_name,
+        profile_picture,
+        num_of_followers
+    }
+}
+
+"/users/<id:int>/friends/"
+GET:
+{
+    {
+        id,
+        first_name,
+        last_name,
+        profile_picture,
+        num_of_followers,
+        is_followed,
+        is_friend,
+        is_friend_request_sent,
+        is_friend_request_received
+    }
+}
+
+POST: 
+DELETE
+
+"/users/<id:int>/request/"
+POST
+DELETE
+
+"/posts/<id:int>/likes/"
+POST
+DELETE
+
+"/posts/<id:int>/comments/<id:int>/likes/"
+POST
+DELETE
+
+"/posts/<id:int>/comments/<id:int>/responses/<id:int>/likes/"
+POST
+DELETE
+
+"/conversations/<id:int>/messesges/"
+GET:
+{
+    {
+        id,
+        author: 
+        {
+            first_name,
+            last_name,
+            profile_picture
+        }
+        content,
+        time,
+        media? :
+        {
+            type,
+            media_string
+        }
+    }
+}
+
+"/conversations/<id:int>/messeges/<id:int>/"
+DELETE
+
+
