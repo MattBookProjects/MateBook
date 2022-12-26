@@ -7,7 +7,7 @@ POST: { username, password, firstName, lastName }
 "/login":
 POST: { username, password }
 
-"/posts(?(followed=true)or(friend=true)":
+"/posts(?(filter=followed/friends/all)&(sortedby=(likes/recent)":
 GET: 
 {
     { 
@@ -35,7 +35,7 @@ POST: { content }
 PUT: { content },
 DELETE
 
-"/posts/<id:int>/comments":
+"/posts/<id:int>/comments(?(sorted=(likes/recent/followed/friends)"
 GET:
 {
     { 
@@ -137,6 +137,10 @@ GET:
         }    
     }
 }
+PUT:
+{
+    profile_picture
+}
 
 "/users/<id:int>/followers/" 
 POST:
@@ -224,5 +228,8 @@ GET:
         }
     }
 }
+
+"/conversations/<id:int>/messeges/<id:int>/"
+DELETE
 
 
