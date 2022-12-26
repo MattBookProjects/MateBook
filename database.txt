@@ -4,39 +4,65 @@ TABLE USER
 -password: varchar
 -active: boolean
 
-TABLE POSTS
+TABLE POST
 -id: int PK auto increment
 -user_id: int FK USER.id
 -content: varchar
--datetime: datetime
+-time: datetime
+
+TABLE POST_MEDIA
+-id: int PK auto increment
+-post_id: int FK POST.id
+-location: varchar
+-type: varchar
 
 TABLE COMMENT
 -id: int PK auto increment
 -post_id: int FK POST.id
 -user_id: int FK USER.id
 -content: varchar
--datetime: datetime
+-time: datetime
+-is_author_notified: boolean
+
+TABLE COMMENT_MEDIA
+-id: int PK auto increment
+-comment_id: int FK COMMENT.id
+-location: varchar
+-type: varchar
 
 TABLE RESPONSE_TO_COMMENT
 -id: int PK auto increment
 -comment_id: int FK COMMENT.id
 -content: varchar
--datetime: datetime
+-time: datetime
+-is_author_notified: boolean
+
+TABLE RESPONSE_TO_COMMENT_MEDIA
+-id: int PK auto increment
+-response_to_comment_id: int FK COMMENT.id
+-location: varchar
+-type: varchar
 
 TABLE LIKE_FOR_POST
 -id: int PK auto increment
 -post_id: int FK POST.id
 -user_id: int FK USER.id
+-time: datetime
+-is_author_notified: boolean
 
 TABLE LIKE_FOR_COMMENT
 -id: int PK auto increment
 -comment_id: int FK COMMENT.id
 -user_id: int FK USER.id
+-time: datetime
+-is_author_notified: boolean
 
 TABLE LIKE_FOR_RESPONSE_TO_COMMENT
 -id: int PK auto increment
 -response_to_comment_id: int FK RESPONSE_TO_COMMENT.id
 -user_id: int FK USER.id
+-time: dateitme
+-is_author_notified: boolean
 
 TABLE FOLLOW
 -id: int PK auto increment
@@ -47,7 +73,11 @@ TABLE FOLLOW
 
 TABLE CONVERSATION
 -id: int PK auto increment
--name: varchar NULL
+
+TABLE USER_CONVERSATION
+-id: int PK auto increment
+-user_id: int FK USER.id
+-conversation_id: int FK CONVERSATION.id
 
 TABLE MESSAGE
 -id: int PK auto increment
@@ -61,6 +91,8 @@ TABLE MESSAGE_READ
 -message_id: int FK MESSAGE.id
 -user_id: int FK USER.id
 -notified: boolean
+-is_read: boolean
+-time: datetime
 
 TABLE FRIENDSHIP
 -id: int PK auto increment
@@ -76,6 +108,18 @@ TABLE FRIEND_REQUEST
 -requested: int FK USER.id
 -time: datetime
 -notified: boolean
+
+TABLE FRIEND_REQUEST_ACCEPTED
+-id: int PK auto increment
+-user_id int FK USER.id
+-new_friend_id: int FK USER.id
+-time: datetime
+-notified: boolean
+
+TABLE ACTIVE_SESSION
+-id: int PK auto increment
+-user_id: int FK USER.id
+-session_token
 
 
 
