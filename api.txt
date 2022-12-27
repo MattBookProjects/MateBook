@@ -75,7 +75,6 @@ GET: {
         },
         comment_id
     }
-
     {
         type: "comment_response",
         user: {
