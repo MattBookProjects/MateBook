@@ -7,6 +7,116 @@ POST: { username, password, firstName, lastName }
 "/login":
 POST: { username, password }
 
+"/logout":
+DELETE
+
+"/notifications":
+GET: {
+    {
+        type: "friend_request_accepted"/"friend_request"/"post_like"/"post_comment"/"comment_like"/"comment_response"/"response_to_comment_like",
+        time
+    }
+
+    {
+        type: "friend_request_accepted"/"friend_request",
+        user: {
+            id,
+            first_name,
+            last_name,
+            profile_picture
+        },
+        time
+    }
+
+    {
+        type: "post_like",
+        user: {
+            id,
+            first_name,
+            last_name,
+            profile_picture
+        },
+        time,
+        content
+    }
+
+    {
+        type: "post_comment",
+        user: {
+            id,
+            first_name,
+            last_name,
+            profile_picture
+        },
+        time, 
+        post: {
+            id,
+            content?
+        },
+        comment_id
+    }
+
+    {
+        type: "comment_like",
+        user: {
+            id,
+            first_name,
+            last_name,
+            profile_picture,
+        },
+        time,
+        post: {
+            id,
+            author: {
+                first_name,
+                last_name,
+                own?
+            }
+        },
+        comment_id
+    }
+
+    {
+        type: "comment_response",
+        user: {
+            id,
+            first_name,
+            last_name,
+            profile_picture
+        }
+        post: {
+            id,
+            author: {
+                first_name,
+                last_name,
+                own?
+            }
+        }
+    }
+
+    {
+        type: "response_to_comment_like",
+        user: {
+            id,
+            first_name,
+            last_name,
+            profile_picture
+        }
+        post_id,
+        comment: {
+            id,
+            author: {
+                first_name,
+                last_name,
+                own?
+            }
+        },
+        response_to_comment_id
+    }
+
+    
+}
+
 "/posts(?(filter=followed/friends/all)&(sortedby=(likes/recent)":
 GET: 
 {
