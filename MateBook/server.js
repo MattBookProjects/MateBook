@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 const distDir = __dirname + "/dist";
 
@@ -16,4 +17,24 @@ const server = app.listen(process.env.PORT || 8080, () => {
 
 app.get("/api/status", (req, res) => {
     res.status(200).json({ status: "UP"});
+});
+
+app.post("/api/register", (req, res) => {
+    
+});
+
+app.post("/api/login", (req, res) => {
+
+});
+
+app.delete("/api/logout", (req, res) => {
+    
+});
+
+app.post("/posts", (req, res) => {
+
+});
+
+app.get("/posts", (req, res) => {
+
 });
