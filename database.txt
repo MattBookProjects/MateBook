@@ -1,47 +1,52 @@
 TABLE USER
 -id: int PK auto increment
 -username: varchar unique
--password: varchar
--active: boolean
+-password_hash: varchar(255)
+-first_name: varchar(255)
+-last_name: varchar(255)
+-is_active: boolean
+-profile_picture_location: varchar(255) NULL
 
 TABLE POST
 -id: int PK auto increment
--user_id: int FK USER.id
+-author_id: int FK USER.id
 -content: varchar
 -time: datetime
+-is_edited: booolean
 
 TABLE POST_MEDIA
 -id: int PK auto increment
 -post_id: int FK POST.id
--location: varchar
--type: varchar
+-source_location: varchar (255)
+-media_type: char (5)
 
 TABLE COMMENT
 -id: int PK auto increment
 -post_id: int FK POST.id
--user_id: int FK USER.id
--content: varchar
+-author_id: int FK USER.id
+-content: varchar (255)
 -time: datetime
 -is_author_notified: boolean
+-is_edited: boolean
 
 TABLE COMMENT_MEDIA
 -id: int PK auto increment
 -comment_id: int FK COMMENT.id
--location: varchar
--type: varchar
+-source_location: varchar(255)
+-media_type: char(5)
 
 TABLE RESPONSE_TO_COMMENT
 -id: int PK auto increment
 -comment_id: int FK COMMENT.id
--content: varchar
+-content: varchar(255)
 -time: datetime
 -is_author_notified: boolean
 
 TABLE RESPONSE_TO_COMMENT_MEDIA
 -id: int PK auto increment
 -response_to_comment_id: int FK COMMENT.id
--location: varchar
--type: varchar
+-source_location: varchar(255)
+-media_type: char(5)
 
 TABLE LIKE_FOR_POST
 -id: int PK auto increment
@@ -82,7 +87,7 @@ TABLE USER_CONVERSATION
 TABLE MESSAGE
 -id: int PK auto increment
 -conversation_id: int FK CONVERSATION.id
--user_id: int FK USER.id
+-author_id: int FK USER.id
 -content: varchar
 -time: datetime
 
@@ -90,7 +95,6 @@ TABLE MESSAGE_READ
 -id: int PK auto increment
 -message_id: int FK MESSAGE.id
 -user_id: int FK USER.id
--notified: boolean
 -is_read: boolean
 -time: datetime
 
@@ -111,8 +115,8 @@ TABLE FRIEND_REQUEST
 
 TABLE FRIEND_REQUEST_ACCEPTED
 -id: int PK auto increment
--user_id int FK USER.id
--new_friend_id: int FK USER.id
+-requesting_id int FK USER.id
+-accepting_id: int FK USER.id
 -time: datetime
 -notified: boolean
 
@@ -120,6 +124,11 @@ TABLE ACTIVE_SESSION
 -id: int PK auto increment
 -user_id: int FK USER.id
 -session_token
+
+TABLE BLOCK
+-id int PK auto increment
+-blocker_id int FK USER.id
+-blocked_id int FK USER.id
 
 
 
