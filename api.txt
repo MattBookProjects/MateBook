@@ -6,6 +6,10 @@ POST: { username, password, firstName, lastName }
 
 "/login":
 POST: { username, password }
+return {
+    id,
+    session_token
+}
 
 "/logout":
 DELETE
@@ -270,7 +274,7 @@ GET:
 "/users/<id:int>/followers/<id:int>"
 DELETE
 
-"users/<id:int>/followed"
+"/users/<id:int>/followed"
 GET:
 {
     {
@@ -305,8 +309,11 @@ DELETE
 POST
 DELETE
 
-"/posts/<id:int>/likes/"
+"/posts/<post_id:int>/likes/"
 POST
+{ id }
+
+"/posts/<post_id:int>/likes/<user_id:int>"
 DELETE
 
 "/posts/<id:int>/comments/<id:int>/likes/"
