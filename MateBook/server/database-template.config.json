@@ -1,0 +1,17 @@
+{
+    "server": "localhost",
+    "authentication": {
+        "type": "default",
+        "options": {
+            "userName": "",
+            "password": ""
+        }
+    },
+    "options": {
+        "encrypt": true,
+        "database": "",
+        "trustServerCertificate": true,
+        "rowCollectionOnRequestCompletion": true,
+        "useColumnNames": true
+    }
+}
