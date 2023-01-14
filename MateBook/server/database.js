@@ -7,36 +7,26 @@ const Request = tedious.Request;
 
 class Database {
     constructor(config) {
-        console.log(config);
         this.config = config;
         this.createUser = (userObject) => {
             return new Promise((res, rej) => {
                 let user, error;
                 let request = new Request(`INSERT INTO USERS ${utils.getSqlInsertStatementFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
-                        console.log('err');
                         error = true;
                     } else {
-                        console.log('no err');
-                        retUser = rows;
+                        user = rows;
                     }
                 });
-                console.log('executing');
                 let connection = new Connection(this.config);
                 request.on('requestCompleted', () => {
                     connection.close();
                     if (error) {
-                        console.log('err')
                         rej('error');
                     }
-                    res(retUser);
+                    res(user);
                 });
-                request.on('error', (err) => {
-                    console.log(err);
-                })
-                console.log('executin2');
                 connection.connect(() => {
-                    console.log('execsql');
                     connection.execSql(request)});
             });
         }
@@ -45,7 +35,7 @@ class Database {
                 let result, error;
                 const request = new Request(`SELECT id FROM USERS WHERE ${utils.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
-                        error = true;
+                        error = err;
                     }
                     if (rowCount > 0) {
                         result = true;
@@ -58,12 +48,13 @@ class Database {
                 request.on('requestCompleted', () => {
                     connection.close();
                     if (error){
-                        rej('error');
+                        rej(error);
                     } else {
                         res(result);
                     }
                 });
-                connection.connect(() => connection.execSql(request));
+                connection.connect(() => {
+                    connection.execSql(request)});
             });
         };
 
@@ -73,7 +64,6 @@ class Database {
                 const request = new Request(`INSERT INTO ACTIVE_SESsION ${utils.getSqlInsertStatementFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = true;
-                        console.log(err);
                     } else if (rowCount > 0) {
                         result = rows;
                     }
@@ -118,7 +108,7 @@ class Database {
         };
 
         this.getUser = (userObject) => {
-            return new Promise((res, rep) => {
+            return new Promise((res, rej) => {
                 let result, error;
                 const request = new Request(`SELECT * FROM USERS WHERE ${utils.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {

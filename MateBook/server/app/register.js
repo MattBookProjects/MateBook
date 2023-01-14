@@ -24,16 +24,16 @@ export default async function register(req, res){
         return;
     }
     if (userExists) {
-        res.status(400).json({message: "Username already taken"});
+        res.status(409).json({message: "Username already taken"});
     } else {
         let user;
         try {
             user = await database.createUser({username: username, password_hash: password_hash, first_name: first_name, last_name: last_name});
         }
         catch {
-            res.status(500).json('Internal server error');
+            res.status(500).json({message: 'Internal server error'});
             return;
         }
-        res.status(201).json({id: user.id})
+        res.status(201);
     }
 }

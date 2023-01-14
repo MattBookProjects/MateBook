@@ -1,24 +1,86 @@
 import register from '../app/register.js';
-import Database from '../database.js';
-import jest from 'jest';
-jest.mock('../database.js');
+import {jest} from '@jest/globals';
+import database from '../database.js';
+
+//jest.mock('../database.js');
 
 describe('Tests for register endpoint', () => {
-    test('Should send 400 od bad or missing request parameters', async () => {
-        const request = {
-            body: {
-                username: 'username'
-            }
-        };
-        const response = {
-            status: (status) => {
-                return {
-                    json: (json) => {}
+    describe('Should send 400 on bad request', () => {
+        test('Should send 400 on missing request parameters', async () => {
+            const request = {
+                body: {
+                    username: 'username'
                 }
+            };
+            const response = {
+                status: jest.fn(),
             }
-        }
-        await register(request, response);
-        expect(response.status).toHaveBeenCalledWith(400);
-        expect(response.status().json).toHaveBeenCalledWith({message: 'Invalid input'});
+            response.status.mockReturnValue({ json: jest.fn() });
+            await register(request, response);
+
+            expect(response.status).toHaveBeenCalledWith(400);
+            expect(response.status().json).toHaveBeenCalledWith({ message: 'Invalid input' });
+        });
+        test('Should send 400 on incorrect request parameters', async () => {
+            const request = {
+                body: {
+                    username: 'username',
+                    password: 'password',
+                    first_name: 'first_name',
+                    last_name: null
+                }
+            };
+            const response = {
+                status: jest.fn()
+            }
+            response.status.mockReturnValue({ json: jest.fn() });
+            await register(request, response);
+
+            expect(response.status).toHaveBeenCalledWith(400);
+            expect(response.status().json).toHaveBeenCalledWith({ message: 'Invalid input' });
+
+        });
     });
+    describe('Should send 409 if username is taken', () => {
+        test('Should send 409 if username is taken', async () => {
+           database.userExists = jest.fn().mockResolvedValueOnce(true);
+        
+            const request = {
+                body: { 
+                    username: 'username',
+                    password: 'password',
+                    first_name: 'firstName',
+                    last_name: 'lastName'
+                }
+            };
+            const response = {
+                status: jest.fn()
+            }
+            response.status.mockReturnValue({json: jest.fn()});
+            await register(request, response);
+            expect(response.status).toHaveBeenCalledWith(409);
+            expect(response.status().json).toHaveBeenCalledWith({message: 'Username already taken'});
+        });
+    });
+    describe('Should send 201 on correct registration', () => {
+        test('Should send 201 on correct registration', async () => {
+            database.userExists = jest.fn().mockResolvedValueOnce(false);
+            database.createUser = jest.fn().mockResolvedValueOnce({id: 1});
+            const request = {
+                body: { 
+                    username: 'username',
+                    password: 'password',
+                    first_name: 'firstName',
+                    last_name: 'lastName'
+                }
+            };
+            const response = {
+                status: jest.fn()
+            }
+            response.status.mockReturnValue({json: jest.fn()});
+            await register(request, response);
+            expect(response.status).toHaveBeenCalledWith(201);
+           // expect(response.status().json).toHaveBeenCalledWith({message: 'Username already taken'});
+        })
+    })
 })

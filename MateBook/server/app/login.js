@@ -15,7 +15,6 @@ export default async function login (req, res) {
     try {
         userExists = await database.userExists({username: username, password_hash: password_hash});
     } catch {
-        console.log('USEREXISTS');
         res.status(500).json({message: 'Internal server error'});
         return;
     }
