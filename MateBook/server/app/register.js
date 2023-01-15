@@ -20,7 +20,7 @@ export default async function register(req, res){
         userExists = await database.userExists({username: username});
     }
     catch {
-        res.status(500).json({message: 'Interenal sever error'});
+        res.status(500).json({message: 'Internal server error'});
         return;
     }
     if (userExists) {
