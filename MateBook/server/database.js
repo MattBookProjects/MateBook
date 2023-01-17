@@ -1,51 +1,42 @@
 import tedious from 'tedious';
 import fetch from 'file-fetch';
 import * as utils from './utils.js';
+import sqlHelpers from './utils/sqlHelpers.js';
 
 const Connection = tedious.Connection;
 const Request = tedious.Request;
 
 class Database {
     constructor(config) {
-        console.log(config);
         this.config = config;
         this.createUser = (userObject) => {
             return new Promise((res, rej) => {
                 let user, error;
-                let request = new Request(`INSERT INTO USERS ${utils.getSqlInsertStatementFromObject(userObject)}`, (err, rowCount, rows) => {
+                let request = new Request(`INSERT INTO USERS ${sqlHelpers.getSqlInsertStatementFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
-                        console.log('err');
                         error = true;
                     } else {
-                        console.log('no err');
-                        retUser = rows;
+                        user = rows;
                     }
                 });
-                console.log('executing');
                 let connection = new Connection(this.config);
                 request.on('requestCompleted', () => {
                     connection.close();
                     if (error) {
-                        console.log('err')
                         rej('error');
                     }
-                    res(retUser);
+                    res(user);
                 });
-                request.on('error', (err) => {
-                    console.log(err);
-                })
-                console.log('executin2');
                 connection.connect(() => {
-                    console.log('execsql');
                     connection.execSql(request)});
             });
         }
         this.userExists = (userObject) => {
             return new Promise((res, rej) => {
                 let result, error;
-                const request = new Request(`SELECT id FROM USERS WHERE ${utils.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`SELECT id FROM USERS WHERE ${sqlHelpers.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
-                        error = true;
+                        error = err;
                     }
                     if (rowCount > 0) {
                         result = true;
@@ -58,22 +49,22 @@ class Database {
                 request.on('requestCompleted', () => {
                     connection.close();
                     if (error){
-                        rej('error');
+                        rej(error);
                     } else {
                         res(result);
                     }
                 });
-                connection.connect(() => connection.execSql(request));
+                connection.connect(() => {
+                    connection.execSql(request)});
             });
         };
 
         this.createSession = (sessionObject) => {
             return new Promise((res, rej) => {
                 let error, result;
-                const request = new Request(`INSERT INTO ACTIVE_SESsION ${utils.getSqlInsertStatementFromObject(sessionObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`INSERT INTO ACTIVE_SESsION ${sqlHelpers.getSqlInsertStatementFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = true;
-                        console.log(err);
                     } else if (rowCount > 0) {
                         result = rows;
                     }
@@ -94,7 +85,7 @@ class Database {
         this.sessionExists = (sessionObject) => {
             return new Promise((res, rej) => {
                 let error, result;
-                const request = new Request(`SELECT id FROM ACTIVE_SESSION WHERE ${utils.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`SELECT id FROM ACTIVE_SESSION WHERE ${sqlHelpers.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = true;
                         console.log(err);
@@ -118,15 +109,15 @@ class Database {
         };
 
         this.getUser = (userObject) => {
-            return new Promise((res, rep) => {
+            return new Promise((res, rej) => {
                 let result, error;
-                const request = new Request(`SELECT * FROM USERS WHERE ${utils.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`SELECT * FROM USERS WHERE ${sqlHelpers.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = err;
                     } else if (rowCount !== 1){
                         error = 'Error: multiple results';
                     } else {
-                        result = utils.convertSqlRowToObject(rows[0]);
+                        result = sqlHelpers.convertSqlRowToObject(rows[0]);
                     }
                 })
                 let connection = new Connection(this.config);
@@ -145,7 +136,7 @@ class Database {
         this.deleteSession = (sessionObject) => {
             return new Promise((res, rep) => {
                 let result, error;
-                const request = new Request(`DELETE FROM ACTIVE_SESSION WHERE ${utils.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`DELETE FROM ACTIVE_SESSION WHERE ${sqlHelpers.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = err;
                     } else {

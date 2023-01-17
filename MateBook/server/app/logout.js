@@ -1,12 +1,11 @@
 import database from '../database.js';
-import * as utils from '../utils.js';
+import validators from '../utils/validators.js';
 
 export default async function logout(req, res){
     let user_id, session_token;
-    console.log('logout called');
     try {
-        user_id = utils.validateNumberInput(req.body.id);
-        session_token = req.headers.MateBookAuthToken;
+        user_id = validators.validateNumberInput(req.body.auth.user_id);
+        session_token = validators.validateStringInput(req.body.auth.session_token)
     } catch {
         res.status(400).json({message: 'Invalid input'});
         return;
