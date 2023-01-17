@@ -5,6 +5,12 @@ import database from '../database.js';
 //jest.mock('../database.js');
 
 describe('Tests for register endpoint', () => {
+    let response;
+    beforeAll(() => {
+        response = {
+            status: jest.fn().mockReturnValue({json: jest.fn()})
+        }
+    })
     describe('Should send 400 on bad request', () => {
         test('Should send 400 on missing request parameters', async () => {
             const request = {
@@ -12,9 +18,6 @@ describe('Tests for register endpoint', () => {
                     username: 'username'
                 }
             };
-            const response = {
-                status: jest.fn(),
-            }
             response.status.mockReturnValue({ json: jest.fn() });
             await register(request, response);
 
@@ -30,10 +33,6 @@ describe('Tests for register endpoint', () => {
                     last_name: null
                 }
             };
-            const response = {
-                status: jest.fn()
-            }
-            response.status.mockReturnValue({ json: jest.fn() });
             await register(request, response);
 
             expect(response.status).toHaveBeenCalledWith(400);
@@ -45,20 +44,16 @@ describe('Tests for register endpoint', () => {
                 password: 'password',
                 first_name: 'first_name',
                 last_name: ''
-            }
-            const response = {
-                status: jest.fn()
-            }
-            response.status.mockReturnValue({ json: jest.fn() });
+            };
             await register(request, response);
+
             expect(response.status).toHaveBeenCalledWith(400);
             expect(response.status().json).toHaveBeenCalledWith({ message: 'Invalid input' });
         })
     });
     describe('Should send 409 if username is taken', () => {
         test('Should send 409 if username is taken', async () => {
-           database.userExists = jest.fn().mockResolvedValueOnce(true);
-        
+           database.userExists = jest.fn().mockResolvedValueOnce(true);  
             const request = {
                 body: { 
                     username: 'username',
@@ -67,10 +62,6 @@ describe('Tests for register endpoint', () => {
                     last_name: 'lastName'
                 }
             };
-            const response = {
-                status: jest.fn()
-            }
-            response.status.mockReturnValue({json: jest.fn()});
             await register(request, response);
             expect(response.status).toHaveBeenCalledWith(409);
             expect(response.status().json).toHaveBeenCalledWith({message: 'Username already taken'});
@@ -87,10 +78,6 @@ describe('Tests for register endpoint', () => {
                     last_name: 'lastName'
                 }
             };
-            const response = {
-                status: jest.fn()
-            }
-            response.status.mockReturnValue({json: jest.fn()});
             await register(request, response);
             expect(response.status).toHaveBeenCalledWith(500);
             expect(response.status().json).toHaveBeenCalledWith({message: 'Internal server error'});
@@ -106,10 +93,6 @@ describe('Tests for register endpoint', () => {
                     last_name: 'lastName'
                 }
             };
-            const response = {
-                status: jest.fn()
-            }
-            response.status.mockReturnValue({json: jest.fn()});
             await register(request, response);
             expect(response.status).toHaveBeenCalledWith(500);
             expect(response.status().json).toHaveBeenCalledWith({message: 'Internal server error'});
@@ -127,10 +110,6 @@ describe('Tests for register endpoint', () => {
                     last_name: 'lastName'
                 }
             };
-            const response = {
-                status: jest.fn()
-            }
-            response.status.mockReturnValue({json: jest.fn()});
             await register(request, response);
             expect(response.status).toHaveBeenCalledWith(201);
            // expect(response.status().json).toHaveBeenCalledWith({message: 'Username already taken'});

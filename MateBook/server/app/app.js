@@ -44,7 +44,7 @@ export default function App(database){
         })
     ); 
 
-    app.get("api/status", (req, res) => {
+    app.get("/api/status", (req, res) => {
         res.status(200).json({ status: "UP"});
     });
 

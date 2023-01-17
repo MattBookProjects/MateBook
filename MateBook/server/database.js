@@ -1,6 +1,7 @@
 import tedious from 'tedious';
 import fetch from 'file-fetch';
 import * as utils from './utils.js';
+import sqlHelpers from './utils/sqlHelpers.js';
 
 const Connection = tedious.Connection;
 const Request = tedious.Request;
@@ -11,7 +12,7 @@ class Database {
         this.createUser = (userObject) => {
             return new Promise((res, rej) => {
                 let user, error;
-                let request = new Request(`INSERT INTO USERS ${utils.getSqlInsertStatementFromObject(userObject)}`, (err, rowCount, rows) => {
+                let request = new Request(`INSERT INTO USERS ${sqlHelpers.getSqlInsertStatementFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = true;
                     } else {
@@ -33,7 +34,7 @@ class Database {
         this.userExists = (userObject) => {
             return new Promise((res, rej) => {
                 let result, error;
-                const request = new Request(`SELECT id FROM USERS WHERE ${utils.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`SELECT id FROM USERS WHERE ${sqlHelpers.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = err;
                     }
@@ -61,7 +62,7 @@ class Database {
         this.createSession = (sessionObject) => {
             return new Promise((res, rej) => {
                 let error, result;
-                const request = new Request(`INSERT INTO ACTIVE_SESsION ${utils.getSqlInsertStatementFromObject(sessionObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`INSERT INTO ACTIVE_SESsION ${sqlHelpers.getSqlInsertStatementFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = true;
                     } else if (rowCount > 0) {
@@ -84,7 +85,7 @@ class Database {
         this.sessionExists = (sessionObject) => {
             return new Promise((res, rej) => {
                 let error, result;
-                const request = new Request(`SELECT id FROM ACTIVE_SESSION WHERE ${utils.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`SELECT id FROM ACTIVE_SESSION WHERE ${sqlHelpers.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = true;
                         console.log(err);
@@ -110,13 +111,13 @@ class Database {
         this.getUser = (userObject) => {
             return new Promise((res, rej) => {
                 let result, error;
-                const request = new Request(`SELECT * FROM USERS WHERE ${utils.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`SELECT * FROM USERS WHERE ${sqlHelpers.getSqlConditionalFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = err;
                     } else if (rowCount !== 1){
                         error = 'Error: multiple results';
                     } else {
-                        result = utils.convertSqlRowToObject(rows[0]);
+                        result = sqlHelpers.convertSqlRowToObject(rows[0]);
                     }
                 })
                 let connection = new Connection(this.config);
@@ -135,7 +136,7 @@ class Database {
         this.deleteSession = (sessionObject) => {
             return new Promise((res, rep) => {
                 let result, error;
-                const request = new Request(`DELETE FROM ACTIVE_SESSION WHERE ${utils.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
+                const request = new Request(`DELETE FROM ACTIVE_SESSION WHERE ${sqlHelpers.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = err;
                     } else {

@@ -1,16 +1,18 @@
 import database from '../database.js';
 import * as utils from '../utils.js';
+import authentication from '../utils/authentication.js';
+import validators from '../utils/validators.js';
 
 export default async function login (req, res) {
     let username, password;
     try {
-        username = utils.validateStringInput(req.body.username);
-        password = utils.validateStringInput(req.body.password);
+        username = validators.validateStringInput(req.body.username);
+        password = validators.validateStringInput(req.body.password);
     } catch {
         res.status(400).json({message: 'Invalid input'});
         return;
     }
-    let password_hash = utils.hashPassword(password);
+    let password_hash = authentication.hashPassword(password);
     let userExists;
     try {
         userExists = await database.userExists({username: username, password_hash: password_hash});
@@ -25,8 +27,8 @@ export default async function login (req, res) {
     let user;
     try { 
         user = await database.getUser({username: username, password_hash: password_hash});
+        console.log('USER_ID: ', user.id);
     } catch {
-        console.log("GETUSER");
         res.status(500).json({message: 'Internal server error'});
         return;
     }
@@ -47,12 +49,12 @@ export default async function login (req, res) {
             return;
         }
     }
-    const session_token = utils.generateAuthToken();
+    const session_token = authentication.generateAuthToken();
     try {
         await database.createSession({user_id: user.id, session_token: session_token});
-        res.status(200).json({user_id: user.id, session_token: session_token})
-    } catch {
-        console.log('createsession');
+        res.status(200).json({user_id: user.id, session_token: session_token});
+    } catch (err) {
+        console.log(err);
         res.status(500).json({message: 'Internal server error'});
     }
 }
