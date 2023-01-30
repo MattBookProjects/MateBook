@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <title>login</title>    
+        <style>
+            body {
+                background-color: purple;
+                padding: 10px;
+            }
+            .box {
+                display: flex;
+                flex-direction: column;
+            }
+            .logo-box {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+            .logo {
+                font-size: 40px;
+                color: white;
+            }
+            .logo-first-letter {
+                color: purple;
+                background-color: white;
+            }
+            .form-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 200px;
+            }
+            .form-title{
+                font-size: 50px;
+                color: white;
+            }
+            .form-title-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 50px;
+            }
+            .form-input{
+                width: 500px;
+                padding: 10px;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+            .form{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border: 5px solid white;
+                border-radius: 10px;
+                gap: 10px;
+                padding: 15px;
+                background-color: #190019;
+            }
+            .form-row{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+            .button-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                width: 100%;
+                padding: 5px;
+            }
+            .button{
+                background-color: purple;
+                color: white;
+                padding: 10px;
+                font-size: 20px;
+                border-radius: 10px;
+                border-color: white;
+            }
+            .register-prompt-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                width: 100%;
+                padding: 5px;
+            }
+            .register-prompt{
+                font-size: 20px;
+                color: white;
+            }
+            .register-prompt-hyperlink{
+                color: #ff10ff;
+                font-weight: 700;
+                cursor: pointer
+            }
+            .register-prompt-hyperlink:hover{
+                color: #ff50ff;
+                font-weight: 700;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <div class="logo-box">
+                <div class="logo">
+                    <span class="logo-first-letter">M</span>atebook
+                </div>
+            </div>
+            <div class="form-box">
+                <div class="form">
+                    <div class="form-title-box">
+                        <div class="form-title">Login</div>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="username" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="password" class="form-input">
+                    </div>
+                    <div class="button-box">
+                        <button class="button">
+                            Login
+                        </button>
+                    </div>
+                    <div class="register-prompt-box">
+                        <div class="register-prompt">
+                            Don't have an account? <span class="register-prompt-hyperlink">Register</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

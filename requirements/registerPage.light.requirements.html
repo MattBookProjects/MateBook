@@ -1,0 +1,148 @@
+<html>
+    <head>
+        <title>register</title>    
+        <style>
+            body {
+                background-color: purple;
+                padding: 10px;
+            }
+            .box {
+                display: flex;
+                flex-direction: column;
+            }
+            .logo-box {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+            .logo {
+                font-size: 40px;
+                color: white;
+            }
+            .logo-first-letter {
+                color: purple;
+                background-color: white;
+            }
+            .form-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 200px;
+            }
+            .form-title{
+                font-size: 50px;
+                color: #190019;
+            }
+            .form-title-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 50px;
+            }
+            .form-input{
+                width: 500px;
+                padding: 10px;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+            .form-input-label{
+                font-size: 20px;
+                color: #190019;
+            }
+            .form{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border: 5px solid #190019;
+                border-radius: 10px;
+                gap: 10px;
+                padding: 15px;
+                background-color: white;
+            }
+            .form-row{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+            .button-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                width: 100%;
+                padding: 5px;
+            }
+            .button{
+                background-color: purple;
+                color: white;
+                padding: 10px;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+            .login-prompt-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                width: 100%;
+                padding: 5px;
+            }
+            .login-prompt{
+                font-size: 20px;
+                color: #190019;
+            }
+            .login-prompt-hyperlink{
+                color: purple;
+                font-weight: 700;
+                cursor: pointer
+            }
+            .login-prompt-hyperlink:hover{
+                color: #ff10ff;
+                font-weight: 700;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <div class="logo-box">
+                <div class="logo">
+                    <span class="logo-first-letter">M</span>atebook
+                </div>
+            </div>
+            <div class="form-box">
+                <div class="form">
+                    <div class="form-title-box">
+                        <div class="form-title">Register</div>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="username" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="password" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="repeat password" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="first name" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="last name" class="form-input">
+                    </div>
+                    <div class="button-box">
+                        <button class="button">
+                            Register
+                        </button>
+                    </div>
+                    <div class="login-prompt-box">
+                        <div class="login-prompt">
+                            Already have an account? <span class="login-prompt-hyperlink">Log in</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
