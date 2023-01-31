@@ -1,0 +1,21 @@
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: purple;
+    padding: 10px;
+
+    .logo {
+        color: white;
+        background-color: purple;
+        font-size: 40px;
+        font-weight: 500;
+
+        .logo-first-letter {
+            color: purple;
+            background-color: white;
+            font-weight: 700;
+            margin-right: 5px;
+        }
+    }
+}

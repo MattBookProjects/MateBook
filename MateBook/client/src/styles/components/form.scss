@@ -1,0 +1,80 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        border: 5px solid #100010;
+        border-radius: 10px;
+        background-color: #ffdfff;
+        gap: 10px;
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-input {
+            padding: 15px;
+            border: 3px solid #100010; 
+            border-radius: 10px;
+            background-color: #ffcfff;
+            color: #100010;
+            font-size: 25px;
+            width: 500px;
+        }
+        
+        .form-title {
+            font-size: 50px;
+            color: #101010;
+            margin-bottom: 50px;
+            padding: 15px;
+        }
+
+        .button-container {
+            align-self: flex-end;
+
+            .button {
+                background-color: purple;
+                color: #ffefff;
+                border: 3px solid #100010;
+                font-size: 25px;
+                padding: 15px;
+                cursor: pointer;
+                border-radius: 10px;
+
+                &:hover{
+                    background-color: #ff10ff;
+                }
+            }
+        }
+        .prompt-container{
+            align-self: flex-end;
+
+            .prompt {
+                color: #100010;
+                font-size: 20px;
+                font-weight: 400;
+            }
+
+            .prompt-link {
+                color: purple;
+
+                &:hover{
+                    color: #ff10ff;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        
+    }
+}
+
