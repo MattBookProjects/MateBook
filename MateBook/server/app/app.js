@@ -7,20 +7,19 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import tedious from 'tedious';
 import cors from 'cors';
-import * as utils from '../utils.js';
-import register from './register.js';
-import login from './login.js';
-import logout from './logout.js';
-import cookieParser from 'cookie-parser';
+import register from './web/controllers/register.js';
+import login from './web/controllers/login.js';
+import logout from './web/controllers/logout.js';
+import authenticationMiddleware from './web/middleware/authentication.middleware.js';
+
 
 const Connection = tedious.Connection;
 const Request = tedious.Request;
 
 
-export default function App(database){
+export default function App(){
     const app = express();
     app.use(bodyParser.json());
-    app.use(cookieParser());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     //const distDir = __dirname + "/dist";
@@ -56,7 +55,7 @@ export default function App(database){
 
     
   
-    app.delete("/api/logout", logout);
+    app.delete("/api/logout", authenticationMiddleware, logout);
     
  
 

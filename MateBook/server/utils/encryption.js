@@ -1,4 +1,4 @@
-function Authentication(){
+function Encryption(){
     this.generateAuthToken = () => {
         return '00000000'
     };
@@ -7,6 +7,6 @@ function Authentication(){
     }
 }
 
-const authentication = new Authentication();
+const encryption = new Encryption();
 
-export default authentication;
+export default encryption;

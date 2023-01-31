@@ -134,7 +134,7 @@ class Database {
         };
 
         this.deleteSession = (sessionObject) => {
-            return new Promise((res, rep) => {
+            return new Promise((res, rej) => {
                 let result, error;
                 const request = new Request(`DELETE FROM ACTIVE_SESSION WHERE ${sqlHelpers.getSqlConditionalFromObject(sessionObject)}`, (err, rowCount, rows) => {
                     if (err) {
