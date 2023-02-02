@@ -5,6 +5,7 @@ import { RegisterPageComponent } from "./register-page.component";
 import { RouterModule } from "@angular/router";
 import { LoginPageComponent } from "../loginPage/login-page.component.";
 import { ErrorModule } from "../error/error.module";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
     declarations: [RegisterPageComponent],
@@ -16,6 +17,7 @@ import { ErrorModule } from "../error/error.module";
             {path: 'login', component: LoginPageComponent}
           ]),
         ErrorModule,
+        BrowserModule
         ],
     providers: [RegisterService],
     exports: [RegisterPageComponent]
