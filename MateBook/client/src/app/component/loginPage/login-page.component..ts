@@ -9,16 +9,19 @@ import { LoginService } from 'src/app/common/login/login.service';
 export class LoginPageComponent {
   username: string = '';
   password: string = '';
-  constructor(private loginService: LoginService) {
+  error: string | null = null;
+    constructor(private loginService: LoginService) {
    
-  }
+    }
 
   login(): void {
-    if (this.username === '' || this.password === '') {
-
-    }
-    else {
-      this.loginService.login(this.username, this.password)
+    if (this.username === '' ) {
+      this.error = "Username is required"
+    } else if (this.password === '') {
+      this.error = "Password is required"
+    } else {
+      this.loginService.login(this.username, this.password);
+      this.error = null;
     }
   }
 }

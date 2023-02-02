@@ -13,6 +13,7 @@
         border-radius: 10px;
         background-color: #ffdfff;
         gap: 10px;
+      
 
         .form-row {
             display: flex;
@@ -27,7 +28,7 @@
             background-color: #ffcfff;
             color: #100010;
             font-size: 25px;
-            width: 500px;
+            width:500px;
         }
         
         .form-title {
@@ -73,7 +74,15 @@
                 }
             }
         }
-
+        .error-container {
+            align-self: flex-end;
+            width: auto;
+        
+        
+            .error{
+                color: red;
+            }
+        }
         
     }
 }
