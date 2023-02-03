@@ -1,6 +1,6 @@
-import validators from '../../../utils/validators.js';
+import validators from '../../utils/validators.js';
 import ResponseConst from '../../constants/response.const.js';
-import loginService from '../../services/login.service';
+import loginService from '../../services/login.service.js';
 
 export default async function login (req, res) {
     let username, password;

@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { RegisterPageComponent } from "../registerPage/register-page.component";
 import { ErrorModule } from "../error/error.module";
 import { BrowserModule } from "@angular/platform-browser";
+import { RegisterSuccessComponent } from "../registerSuccess/register-success.component";
 
 @NgModule({
     declarations: [LoginPageComponent],
@@ -15,7 +16,8 @@ import { BrowserModule } from "@angular/platform-browser";
         RouterModule.forRoot([
             {path: '', component: LoginPageComponent},
             {path: 'register', component: RegisterPageComponent},
-            {path: 'login', component: LoginPageComponent}
+            {path: 'login', component: LoginPageComponent},
+            {path: 'register/success', component: RegisterSuccessComponent},
           ]),
         ErrorModule,
         BrowserModule

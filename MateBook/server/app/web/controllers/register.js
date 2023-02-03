@@ -1,4 +1,4 @@
-import validators from '../../../utils/validators.js';;
+import validators from '../../utils/validators.js';;
 import registerService from '../../services/register.service.js';
 
 export default async function register(req, res){

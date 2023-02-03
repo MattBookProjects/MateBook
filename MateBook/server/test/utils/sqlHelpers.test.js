@@ -1,4 +1,4 @@
-import sqlHelpers from "../../utils/sqlHelpers";
+import sqlHelpers from "../../app/utils/sqlHelpers";
 
 describe('Tests for sqlHelpers', () => {
     describe('Tests for getSqlConditionalFromObject function', () => {

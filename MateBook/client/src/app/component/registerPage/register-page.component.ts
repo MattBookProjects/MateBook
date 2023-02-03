@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RegisterService } from 'src/app/common/register/register.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,18 +15,11 @@ export class RegisterPageComponent {
     last_name: string = '';
     error: string | null = null;
 
-    constructor (private registerService: RegisterService) { }
+    constructor (private _router: Router, private registerService: RegisterService) { }
 
-    register(){
-        alert('Register called');
+    async register(){
         if (this.username === ''){
-            alert('Username is required');
-            try{
-                this.error = 'Username is required11';
-                alert(this.error);
-            } catch (e) {
-                alert(e);
-            }
+            this.error = 'Username is required'; 
         } else if (this.password === ''){
             this.error = 'Password is required';
         } else if (this.repeat_password === ''){
@@ -37,8 +31,14 @@ export class RegisterPageComponent {
         } else if (this.password !== this.repeat_password){
             this.error = 'Passwords dont match'
         } else {
-            this.registerService.register(this.username, this.password, this.first_name, this.last_name);
             this.error = null;
+            let error = await this.registerService.register(this.username, this.password, this.first_name, this.last_name);
+            if (error){
+                this.error = error;
+            }  
+            else {
+                this._router.navigateByUrl('login')
+            }
         }
     }
 }

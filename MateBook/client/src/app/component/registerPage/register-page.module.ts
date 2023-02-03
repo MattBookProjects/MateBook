@@ -6,6 +6,9 @@ import { RouterModule } from "@angular/router";
 import { LoginPageComponent } from "../loginPage/login-page.component.";
 import { ErrorModule } from "../error/error.module";
 import { BrowserModule } from "@angular/platform-browser";
+import { ApiService } from "src/app/common/api/api.service";
+import { UrlConstant } from "src/app/constant/url.constant";
+import { RegisterSuccessComponent } from "../registerSuccess/register-success.component";
 
 @NgModule({
     declarations: [RegisterPageComponent],
@@ -14,12 +17,13 @@ import { BrowserModule } from "@angular/platform-browser";
         RouterModule.forRoot([
             {path: '', component: LoginPageComponent},
             {path: 'register', component: RegisterPageComponent},
+            {path: 'register/success', component: RegisterSuccessComponent},
             {path: 'login', component: LoginPageComponent}
           ]),
         ErrorModule,
         BrowserModule
         ],
-    providers: [RegisterService],
+    providers: [UrlConstant, ApiService, RegisterService],
     exports: [RegisterPageComponent]
 })
 export class RegisterPageModule { }

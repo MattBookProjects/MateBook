@@ -1,5 +1,5 @@
-import validators from "../../../utils/validators";
-import authenticationService from "../../services/authentication.service";
+import validators from "../../utils/validators.js";
+import authenticationService from "../../services/authentication.service.js";
 
 export default async function authenticationMiddleware(req, res, next){
     const auth = req.body.auth;

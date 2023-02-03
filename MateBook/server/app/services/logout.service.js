@@ -1,5 +1,5 @@
-import ResponsesConst from "../constants/response.const";
-import database from '../../database';
+import ResponsesConst from "../constants/response.const.js";
+import database from '../../database.js';
 
 function LogoutService(){
     this.logout = async (user_id, session_token) => {

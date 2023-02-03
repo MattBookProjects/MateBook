@@ -1,5 +1,3 @@
-import database from '../../../database.js';
-import validators from '../../../utils/validators.js';
 import logoutService from '../../services/logout.service.js';
 
 export default async function logout(req, res){

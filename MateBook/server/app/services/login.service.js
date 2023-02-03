@@ -1,6 +1,6 @@
-import ResponseConst from "../constants/response.const";
-import encryption from "../../utils/encryption"; 
-import database from "../../database";
+import ResponseConst from "../constants/response.const.js";
+import encryption from "../utils/encryption.js"; 
+import database from "../../database.js";
 
 function LoginService() {
     this.login = async (username, password) => {

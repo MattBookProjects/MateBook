@@ -1,4 +1,4 @@
-import validators from '../../utils/validators.js';
+import validators from '../../app/utils/validators.js';
 
 describe('Tests for validators', () => {
     describe('Tests for validateStringInput function', () => {
