@@ -1,6 +1,6 @@
 import loginService from "../../app/services/login.service";
 import database from "../../database";
-import encryption from '../../utils/encryption';
+import encryption from '../../app/utils/encryption';
 import { jest } from "@jest/globals";
 import ResponsesConst from "../../app/constants/response.const";
 

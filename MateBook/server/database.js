@@ -1,7 +1,6 @@
 import tedious from 'tedious';
 import fetch from 'file-fetch';
-import * as utils from './utils.js';
-import sqlHelpers from './utils/sqlHelpers.js';
+import sqlHelpers from './app/utils/sqlHelpers.js';
 
 const Connection = tedious.Connection;
 const Request = tedious.Request;
@@ -15,6 +14,7 @@ class Database {
                 let request = new Request(`INSERT INTO USERS ${sqlHelpers.getSqlInsertStatementFromObject(userObject)}`, (err, rowCount, rows) => {
                     if (err) {
                         error = true;
+                        //console.log(err);
                     } else {
                         user = rows;
                     }

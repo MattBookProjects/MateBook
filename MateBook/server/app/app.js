@@ -26,7 +26,7 @@ export default function App(){
     //app.use(express.static(distDir));
 
     //const databaseConnection = new Connection(databaseConfig);
-    const allowedOrigins = ['http://localhost:8080'];
+    const allowedOrigins = ['http://localhost:3000', 'http://localhost:4200'];
 
     app.use(
         cors({
@@ -44,7 +44,7 @@ export default function App(){
     ); 
 
     app.get("/api/status", (req, res) => {
-        res.status(200).json({ status: "UP"});
+        res.send({ status: "UP"});
     });
 
     app.post("/api/register", register);
