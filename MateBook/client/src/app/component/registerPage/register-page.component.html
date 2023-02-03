@@ -16,12 +16,13 @@
         <div class="form-row">
             <input class="form-input" type="text" placeholder="last name" [(ngModel)]="last_name">
         </div>
+        <error *ngIf="error" class="error-container" [message]="error"></error>
         <div class="button-container">
-            <button class="button" >Register</button>
+            <button class="button" (click)="register()">Register</button>
         </div>
         <div class="prompt-container">
             <div class="prompt">
-                Already have an account? <span class="prompt-link">Log in</span>
+                Already have an account? <a routerLink="/login" class="prompt-link">Log in</a>
             </div>
         </div>
     </div>
