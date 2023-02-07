@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RegisterService } from 'src/app/common/register/register.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class RegisterPageComponent {
     last_name: string = '';
     error: string | null = null;
 
-    constructor (private _router: Router, private registerService: RegisterService) { }
+    constructor (private router: Router, private route: ActivatedRoute, private registerService: RegisterService) { }
 
     async register(){
         if (this.username === ''){
@@ -32,12 +32,21 @@ export class RegisterPageComponent {
             this.error = 'Passwords dont match'
         } else {
             this.error = null;
-            let error = await this.registerService.register(this.username, this.password, this.first_name, this.last_name);
-            if (error){
-                this.error = error;
+            let err;
+            alert('before try catch');
+            try{
+                err = await this.registerService.register(this.username, this.password, this.first_name, this.last_name);      
+            } catch {
+                alert('rejected')
+                return;
+            }
+            alert('after try catch');
+            if (err){
+                this.error = err;
             }  
             else {
-                this._router.navigateByUrl('login')
+                alert('register success');
+                this.router.navigateByUrl('/registersuccess');
             }
         }
     }

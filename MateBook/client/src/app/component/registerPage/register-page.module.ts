@@ -9,19 +9,22 @@ import { BrowserModule } from "@angular/platform-browser";
 import { ApiService } from "src/app/common/api/api.service";
 import { UrlConstant } from "src/app/constant/url.constant";
 import { RegisterSuccessComponent } from "../registerSuccess/register-success.component";
+import { RoutingModule } from "src/app/routing/routing.module";
 
 @NgModule({
     declarations: [RegisterPageComponent],
     imports: [
         FormsModule,
-        RouterModule.forRoot([
+        /*RouterModule.forRoot([
             {path: '', component: LoginPageComponent},
             {path: 'register', component: RegisterPageComponent},
             {path: 'register/success', component: RegisterSuccessComponent},
             {path: 'login', component: LoginPageComponent}
-          ]),
+          ]),*/
+        RoutingModule,
         ErrorModule,
-        BrowserModule
+        BrowserModule,
+        RouterModule
         ],
     providers: [UrlConstant, ApiService, RegisterService],
     exports: [RegisterPageComponent]

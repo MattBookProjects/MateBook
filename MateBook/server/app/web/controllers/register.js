@@ -15,9 +15,9 @@ export default async function register(req, res){
     }
     try {
         await registerService.register(username, password, first_name, last_name);
-        res.status(201);
+        res.status(201).json({});
     } catch (err) {
-        res.status(err.status).json({message: err.message})
+        res.status(err.status).json({message: err.message});
     }
 }
    

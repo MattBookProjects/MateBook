@@ -87,3 +87,18 @@
     }
 }
 
+.prompt {
+    color: #100010;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.prompt-link {
+    color: purple;
+
+    &:hover{
+        color: #ff10ff;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}

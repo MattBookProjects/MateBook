@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MateBook';
-  currentPage: string = 'LoginPage';
+  
   constructor () {}
 
 

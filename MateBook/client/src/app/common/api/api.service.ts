@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiService {
 
-    async post(url: string, body: any): Promise<{ status: number, data: any }> {
+    async post(url: string, body: any): Promise<{ status: number, data?: any }> {
+        alert('api service start');
+        alert(url);
         try {
             let response = await fetch(url, {
                 method: 'POST',
@@ -12,9 +14,9 @@ export class ApiService {
                     'Content-Type': 'application/json'
                 }
             });
-            let status = response.status
-            let data = await response.json();
-            return { status: status, data: data };
+            const status = response.status;
+            const data = await response.json();
+            return {status:status, data: data}
         } catch (err) {
             return { status: 404, data: { message: 'Connection error, please try again later'} }
         }
