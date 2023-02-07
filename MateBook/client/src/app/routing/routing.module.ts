@@ -6,28 +6,27 @@ import { RegisterSuccessComponent } from '../component/registerSuccess/register-
 
 const routes: Routes = [
     {
-        path: '/register',
+        path: 'register',
         component: RegisterPageComponent,
-        children: [
-            {
-                path: '/success',
-                component: RegisterSuccessComponent
-            }
-        ]
     },
     {
-        path: '/login',
+        path: 'registersuccess',
+        component: RegisterSuccessComponent
+    },
+    {
+        path: 'login',
         component: LoginPageComponent
     },
     {
         path: '',
-        redirectTo: '/login'
+        redirectTo: 'login',
+        pathMatch: 'prefix'
     }
 ];
 
-
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    imports: [ RouterModule.forRoot(routes)],
+    exports: [ RouterModule]
 })
-export class RoutingModule {}
+export class RoutingModule { }
+
