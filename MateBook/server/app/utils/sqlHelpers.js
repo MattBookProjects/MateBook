@@ -25,7 +25,7 @@ function SqlHelpers(){
         return `(${keysString}) VALUES (${valuesString})`;
     };
     this.convertSqlRowToObject = (row) => {
-        if (typeof object !== 'object' || Array.isArray(object)){
+        if (typeof row !== 'object' || Array.isArray(row)){
             throw 'NonObjectInputError';
         }
         let keys = Object.keys(row);
