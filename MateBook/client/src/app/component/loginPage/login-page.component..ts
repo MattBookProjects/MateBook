@@ -14,14 +14,18 @@ export class LoginPageComponent {
    
     }
 
-  login(): void {
+  async login(){
     if (this.username === '' ) {
       this.error = "Username is required"
     } else if (this.password === '') {
       this.error = "Password is required"
     } else {
-      this.loginService.login(this.username, this.password);
       this.error = null;
+      let err = await this.loginService.login(this.username, this.password);
+      if (err){
+        this.error = err;
+      }
+   
     }
   }
 }

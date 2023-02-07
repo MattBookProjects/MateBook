@@ -7,9 +7,9 @@
         <div class="form-row">
             <input class="form-input" type="password" placeholder="password" [(ngModel)]="password">
         </div>
-        <error *ngIf="error" [message]="error"></error>
+        <error *ngIf="error" class="error-container" [message]="error"></error>
         <div class="button-container">
-            <button class="button" (click)="login">
+            <button class="button" (click)="login()">
                 Login
             </button>
         </div>

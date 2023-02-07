@@ -11,5 +11,9 @@ export class AuthenticationService {
         }
         return false;
     }
+
+    logIn(auth: {user_id: number, session_token: string}){
+        this.auth = auth;
+    }
    
 }
