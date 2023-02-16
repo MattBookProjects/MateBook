@@ -9,6 +9,7 @@ import { RegisterPageComponent } from './component/registerPage/register-page.co
 import { LoginPageComponent } from './component/loginPage/login-page.component.';
 import { RoutingModule } from './routing/routing.module';
 import { RegisterSuccessComponent } from './component/registerSuccess/register-success.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RegisterSuccessComponent } from './component/registerSuccess/register-s
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ComponentModule,
     FormsModule,
     /*RouterModule.forRoot([

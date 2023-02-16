@@ -6,6 +6,7 @@ import { RegisterSuccessComponent } from '../component/registerSuccess/register-
 import { LoggedInGuard } from './loggedInGuard';
 import { PostsPageComponent } from '../component/postsPage/posts-page.component';
 import { AuthenticationService } from '../common/authentication/authentication.service';
+import { RegisterSuccessGuard } from './registerSuccessGuard';
 
 const routes: Routes = [
     {
@@ -14,6 +15,7 @@ const routes: Routes = [
     },
     {
         path: 'registersuccess',
+        canActivate: [RegisterSuccessGuard],
         component: RegisterSuccessComponent
     },
     {

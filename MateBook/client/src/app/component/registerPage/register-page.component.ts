@@ -33,11 +33,11 @@ export class RegisterPageComponent {
         } else {
             this.error = null;
             let err;
-            alert('before try catch');
+            //alert('before try catch');
             try{
                 err = await this.registerService.register(this.username, this.password, this.first_name, this.last_name);      
             } catch {
-                alert('rejected')
+                //alert('rejected')
                 return;
             }
             alert('after try catch');
@@ -45,8 +45,8 @@ export class RegisterPageComponent {
                 this.error = err;
             }  
             else {
-                alert('register success');
-                this.router.navigateByUrl('/registersuccess');
+               // alert('register success');
+               // this.router.navigateByUrl('/registersuccess');
             }
         }
     }

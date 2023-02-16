@@ -8,12 +8,14 @@ import { ErrorModule } from "../error/error.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { RegisterSuccessComponent } from "../registerSuccess/register-success.component";
 import { RoutingModule } from "src/app/routing/routing.module";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 @NgModule({
     declarations: [LoginPageComponent],
-    providers: [LoginService],
+    providers: [HttpClient, LoginService],
     imports: [
         FormsModule,
+        HttpClientModule,
         /*RouterModule.forRoot([
             {path: '', component: LoginPageComponent},
             {path: 'register', component: RegisterPageComponent},
