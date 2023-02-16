@@ -13,6 +13,11 @@ export class RegisterService {
     constructor (private httpClient: HttpClient, private urlConstant: UrlConstant, private apiService: ApiService, private router: Router) {} 
 
     register(username: string, password: string, first_name: string, last_name: string): Promise<string | null | undefined> {
+
+        const onRegisterSuccess = () => {
+            this.registerSuccess = true;
+            this.router.navigateByUrl('/registersuccess');
+        }
         return new Promise((resolve, reject) => {
             let body = {
                 username: username,
@@ -21,15 +26,18 @@ export class RegisterService {
                 last_name: last_name
             }
             
-            this.apiService.post(this.urlConstant.REGISTER_URL, body).subscribe(response => {
-                if(response.status == 201){
-                    alert('response status 201');
-                    this.registerSuccess = true
-                    this.router.navigateByUrl('/registersuccess');
-                } else {
-                    resolve((response.body as IErrorResponse).message);
+            this.apiService.post(this.urlConstant.REGISTER_URL, body).subscribe({
+                next(response){
+                    if(response.status == 201){
+                        onRegisterSuccess();
+                    } else {
+                        resolve((response.body as IErrorResponse).message);
+                    }
+                    resolve(null);
+                },
+                error(error) {
+                    resolve(error.error.message);
                 }
-                resolve(null);
             })
         })
     }

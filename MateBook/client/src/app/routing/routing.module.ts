@@ -32,7 +32,7 @@ const routes: Routes = [
 @NgModule({
     imports: [ RouterModule.forRoot(routes)],
     exports: [ RouterModule],
-    providers: [AuthenticationService, LoggedInGuard]
+    providers: [AuthenticationService, LoggedInGuard, RegisterSuccessGuard]
 })
 export class RoutingModule { }
 
