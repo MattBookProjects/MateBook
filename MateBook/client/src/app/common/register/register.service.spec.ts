@@ -16,7 +16,9 @@ describe('Tests for register service', () => {
             } as unknown as HttpClient;
             mockUrlConstant = { } as unknown as UrlConstant;
             mockApiService = {
-                post: (url: string, body: any) => { return { status: 201 } }
+                post: (url: string, body: any) => ({
+                    subscribe: ( callback: (response: any) => void ) => { callback({status: 201}) }
+                })
             } as unknown as ApiService;
             mockRouter = {
                 navigateByUrl: (url: string) => {}
@@ -25,9 +27,9 @@ describe('Tests for register service', () => {
         it('on correct registration return null, call navigateByUrl', async () => {
             spyOn(mockRouter, 'navigateByUrl');
             const registerService = new RegisterService(mockHttpClient, mockUrlConstant, mockApiService, mockRouter);
-            let ret = await registerService.register('username', 'password', 'first name', 'last name');
-            expect(ret).toBe(null);
-            expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('register/success');
+            let ret = registerService.register('username', 'password', 'first name', 'last name');
+            await expectAsync(ret).toBeResolvedTo(null);
+            expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/registersuccess');
         }) 
     })
 })
