@@ -1,4 +1,4 @@
 <div>
-  <navbar-component></navbar-component>
-  <router-outlet></router-outlet>
+  <navbar-component [isLoggedIn]="isUserLoggedIn"></navbar-component>
+  <router-outlet (activate)="onRouterActivate($event)"></router-outlet>
 </div>
