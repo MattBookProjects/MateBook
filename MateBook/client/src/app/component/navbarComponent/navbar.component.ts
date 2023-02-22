@@ -13,8 +13,4 @@ export class NavbarComponent implements OnChanges {
         alert(changes['isLoggedIn'].currentValue);    
         this.isLoggedIn = changes['isLoggedIn'].currentValue;
     }
-
-    logout(){
-        this.isLoggedIn = false;
-    }
 }

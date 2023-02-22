@@ -8,7 +8,6 @@ import { LogoutService } from 'src/app/common/logout/logout.service';
 export class UserControlComponent { 
 
     dropdown: boolean = false;
-    @Output() onLogout = new EventEmitter();
 
     constructor(private logoutService: LogoutService) {}
 
@@ -18,6 +17,5 @@ export class UserControlComponent {
 
     logOut() {
         this.logoutService.logOut();
-        this.onLogout.emit();
     }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginPageComponent } from './component/loginPage/login-page.component.';
 import { PostsPageComponent } from './component/postsPage/posts-page.component';
 
 @Component({
@@ -15,7 +16,11 @@ export class AppComponent {
   onRouterActivate(componentRef: any){
     
     if(componentRef instanceof PostsPageComponent){
+      alert('inside if app component');
       this.isUserLoggedIn = true;
+    }
+    else if(componentRef instanceof LoginPageComponent){
+      this.isUserLoggedIn = false;
     }
   }
 
