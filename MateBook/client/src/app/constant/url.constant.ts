@@ -12,4 +12,8 @@ export class UrlConstant {
     get REGISTER_URL(): string {
         return this.BASE_URL + '/register';
     }
+
+    get LOGOUT_URL(): string {
+        return this.BASE_URL + '/logout'
+    }
 }

@@ -13,6 +13,7 @@ export class AppComponent {
   constructor () {}
 
   onRouterActivate(componentRef: any){
+    
     if(componentRef instanceof PostsPageComponent){
       this.isUserLoggedIn = true;
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { catchError, Observable } from 'rxjs';
 
 @Injectable()
@@ -19,6 +19,7 @@ export class ApiService {
     }
 
     delete(url: string, body: any) {
-        return this.httpClient.delete(url, {observe: 'response'});
+        alert('api service delete');
+        return this.httpClient.request('DELETE', url, { body: body, headers:{ 'Content-Type': 'application/json'},observe: 'response'});
     }
 }
