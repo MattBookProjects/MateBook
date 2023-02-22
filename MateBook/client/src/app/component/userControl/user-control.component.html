@@ -1,10 +1,10 @@
-<div (click)="toggleDropdown()">
+<div (click)="toggleDropdown()" class="user-control">
     <svg width="50px" height="50px">
         <circle cx="25" cy="25" r="25" fill="white"></circle>
         <circle cx="25" cy="12" r="12" fill="purple"></circle>
         <polygon points="25,15 10,45 40,45" fill="purple"></polygon>
     </svg>
-    <div class="user-control-dropdown">
+    <div *ngIf="dropdown" class="user-control-dropdown">
         <div class="user-control-dropdown-option" (click)="logOut()">Log out</div>
     </div>
 </div>

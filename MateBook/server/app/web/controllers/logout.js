@@ -5,7 +5,7 @@ export default async function logout(req, res){
     const session_token = req.body.auth.session_token;
     try {
         await logoutService.logout(user_id, session_token);
-        res.status(200);
+        res.status(200).json({});
     } catch (err) {
         res.status(err.status).json({message: err.message});
     }
