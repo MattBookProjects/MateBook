@@ -17,7 +17,7 @@ describe('Tests for register service', () => {
             mockUrlConstant = { } as unknown as UrlConstant;
             mockApiService = {
                 post: (url: string, body: any) => ({
-                    subscribe: ( callback: (response: any) => void ) => { callback({status: 201}) }
+                    subscribe: ( callbacks: {next: (response: any) => void, error: (response: any) => void }) => { callbacks.next({status: 201}) }
                 })
             } as unknown as ApiService;
             mockRouter = {
@@ -30,6 +30,42 @@ describe('Tests for register service', () => {
             let ret = registerService.register('username', 'password', 'first name', 'last name');
             await expectAsync(ret).toBeResolvedTo(null);
             expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/registersuccess');
-        }) 
+        });
+        it('Return message on connection error', async() => {
+            mockApiService = {
+                post: (url: string, body: any) => ({
+                    subscribe: ( callbacks: {next: (response: any) => void, error: (response: any) => void }) => { callbacks.error({status: 0}) }
+                })
+            } as unknown as ApiService;
+            spyOn(mockRouter, 'navigateByUrl');
+            const registerService = new RegisterService(mockHttpClient, mockUrlConstant, mockApiService, mockRouter);
+            let ret = registerService.register('username', 'password', 'first name', 'last name');
+            await expectAsync(ret).toBeResolvedTo('Connection error, please try again later');
+            expect(mockRouter.navigateByUrl).not.toHaveBeenCalled();
+        }); 
+        it('Return message on username taken', async() => {
+            mockApiService = {
+                post: (url: string, body: any) => ({
+                    subscribe: ( callbacks: {next: (response: any) => void, error: (response: any) => void }) => { callbacks.error({status: 409, error: {message: 'Username already taken'}}) }
+                })
+            } as unknown as ApiService;
+            spyOn(mockRouter, 'navigateByUrl');
+            const registerService = new RegisterService(mockHttpClient, mockUrlConstant, mockApiService, mockRouter);
+            let ret = registerService.register('username', 'password', 'first name', 'last name');
+            await expectAsync(ret).toBeResolvedTo('Username already taken');
+            expect(mockRouter.navigateByUrl).not.toHaveBeenCalled();
+        }); 
+        it('Return message on internal server error', async() => {
+            mockApiService = {
+                post: (url: string, body: any) => ({
+                    subscribe: ( callbacks: {next: (response: any) => void, error: (response: any) => void }) => { callbacks.error({status: 500, error: {message: 'Internal server error'}}) }
+                })
+            } as unknown as ApiService;
+            spyOn(mockRouter, 'navigateByUrl');
+            const registerService = new RegisterService(mockHttpClient, mockUrlConstant, mockApiService, mockRouter);
+            let ret = registerService.register('username', 'password', 'first name', 'last name');
+            await expectAsync(ret).toBeResolvedTo('Internal server error');
+            expect(mockRouter.navigateByUrl).not.toHaveBeenCalled();
+        }); 
     })
 })

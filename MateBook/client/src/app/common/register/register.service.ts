@@ -36,7 +36,12 @@ export class RegisterService {
                     resolve(null);
                 },
                 error(error) {
-                    resolve(error.error.message);
+                    if (error.status === 0){
+                        resolve('Connection error, please try again later');
+                    }
+                    else{
+                        resolve(error.error.message);
+                    }
                 }
             })
         })

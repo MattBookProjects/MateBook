@@ -11,10 +11,11 @@ import { RegisterPageComponent } from "./registerPage/register-page.component";
 import { RegisterPageModule } from "./registerPage/register-page.module";
 import { RegisterSuccessComponent } from "./registerSuccess/register-success.component";
 import { RegisterSuccessModule } from "./registerSuccess/registerSuccess.module";
+import { UserControlModule } from "./userControl/user-control.module";
 
 
 @NgModule({
-    imports: [LoginPageModule, NavbarModule, RegisterPageModule, ErrorModule, RegisterSuccessModule, PostsPageModule],
+    imports: [LoginPageModule, NavbarModule, RegisterPageModule, ErrorModule, RegisterSuccessModule, PostsPageModule, UserControlModule],
     exports: [LoginPageComponent, NavbarComponent, RegisterPageComponent, ErrorComponent, RegisterSuccessComponent, PostsPageComponent]
 })
 export class ComponentModule { }
