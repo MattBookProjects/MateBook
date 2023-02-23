@@ -55,7 +55,13 @@ export class LoginService {
            }
           },
           error(error) {
-            resolve(error.error.message)
+            alert(error.status);
+            if(error.status === 0){
+              resolve('Connection error, please try again later');
+            }
+            else{
+              resolve(error.error.message)
+            }
           }
         })
       })

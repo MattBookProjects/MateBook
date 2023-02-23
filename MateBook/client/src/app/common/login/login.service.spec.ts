@@ -18,7 +18,7 @@ describe('Tests for login service', () => {
             } as unknown as HttpClient;
             mockApiService = {
                 post: (url: string, body: any) => ({ 
-                    subscribe: ( callback: (response: any) => void ) => { callback({status: 200, body: { user_id: 1, session_token: 'token'}}) }
+                    subscribe: (callbacks: {next: (response: any) => void, error: (response: any) => void}) => { callbacks.next({status: 200, body: { user_id: 1, session_token: 'token'}}) }
                 })
             } as unknown as ApiService;
             mockAuthenticationService = {
@@ -41,7 +41,7 @@ describe('Tests for login service', () => {
         it('Return message on connection error', async () => {
             mockApiService = {
                 post: (url: string, body: any) => ({ 
-                    subscribe: ( callback: (response: any) => void ) => { callback({status: 404, body: { message: 'Connection error, please try again later'}}) }
+                    subscribe: (callbacks: {next: (response: any) => void, error: (response: any) => void }) => { callbacks.error({status: 404, error: { message: 'Connection error, please try again later'}}) }
                 })
             } as unknown as ApiService;
             spyOn(mockAuthenticationService, 'logIn');
@@ -55,7 +55,7 @@ describe('Tests for login service', () => {
         it('Return message on incorrect login', async () => {
             mockApiService = {
                 post: (url: string, body: any) => ({ 
-                    subscribe: ( callback: (response: any) => void ) => { callback({status: 401, body: { message: 'Incorrect username or password'}}) }
+                    subscribe: ( callbacks: {next: (response: any) => void, error: (response: any) => void})  => { callbacks.error({status: 401, error: { message: 'Incorrect username or password'}}) }
                 })
             } as unknown as ApiService;
             spyOn(mockAuthenticationService, 'logIn');
@@ -69,7 +69,7 @@ describe('Tests for login service', () => {
         it('Return message on internal server error', async () => {
             mockApiService = {
                 post: (url: string, body: any) => ({ 
-                    subscribe: ( callback: (response: any) => void ) => { callback({status: 500, body: { message: 'Internal server error'}}) }
+                    subscribe: ( callbacks: {next: (response: any) => void, error: (response: any) => void }) => { callbacks.error({status: 500, error: { message: 'Internal server error'}}) }
                 })
             } as unknown as ApiService;
             spyOn(mockAuthenticationService, 'logIn');
@@ -80,5 +80,20 @@ describe('Tests for login service', () => {
             expect(mockAuthenticationService.logIn).not.toHaveBeenCalled();
             expect(mockRouter.navigateByUrl).not.toHaveBeenCalled();
         });
+        it("Return message on status 0", async () => {
+            mockApiService = {
+                post: (url: string, body: any) => ({ 
+                    subscribe: ( callbacks: {next: (response: any) => void, error: (response: any) => void }) => { callbacks.error({status: 0 })}
+                })
+            } as unknown as ApiService;
+            spyOn(mockAuthenticationService, 'logIn');
+            spyOn(mockRouter, 'navigateByUrl');
+            const loginService = new LoginService(mockHttpClient, mockApiService, mockUrlConstant, mockAuthenticationService, mockRouter);
+            let ret = loginService.login('username', 'password');
+            await expectAsync(ret).toBeResolvedTo('Connection error, please try again later');
+            expect(mockAuthenticationService.logIn).not.toHaveBeenCalled();
+            expect(mockRouter.navigateByUrl).not.toHaveBeenCalled();
+
+        })
     })
 })
