@@ -2,10 +2,10 @@
     <div class="form">
         <div class="form-title">Login</div>
         <div class="form-row">
-            <input class="form-input" type="text" placeholder="username" [(ngModel)]="username">
+            <input class="form-input" id="username" type="text" placeholder="username" [(ngModel)]="username">
         </div>
         <div class="form-row">
-            <input class="form-input" type="password" placeholder="password" [(ngModel)]="password">
+            <input class="form-input" id="password" type="password" placeholder="password" [(ngModel)]="password">
         </div>
         <error *ngIf="error" class="error-container" [message]="error"></error>
         <div class="button-container">

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { RegisterService } from 'src/app/common/register/register.service';
-import { Router, ActivatedRoute } from '@angular/router';
-
 
 @Component({
     selector: 'register-page',
@@ -15,7 +13,7 @@ export class RegisterPageComponent {
     last_name: string = '';
     error: string | null = null;
 
-    constructor (private router: Router, private route: ActivatedRoute, private registerService: RegisterService) { }
+    constructor (private registerService: RegisterService) { }
 
     async register(){
         if (this.username === ''){
@@ -33,20 +31,14 @@ export class RegisterPageComponent {
         } else {
             this.error = null;
             let err;
-            //alert('before try catch');
             try{
-                err = await this.registerService.register(this.username, this.password, this.first_name, this.last_name);      
+                err = await this.registerService.register(this.username, this.password, this.first_name, this.last_name); 
+                //alert('REGISTER COMPONENT ERROR: ' + err);
+                if (err){
+                    this.error = err;
+                }       
             } catch {
-                //alert('rejected')
                 return;
-            }
-            alert('after try catch');
-            if (err){
-                this.error = err;
-            }  
-            else {
-               // alert('register success');
-               // this.router.navigateByUrl('/registersuccess');
             }
         }
     }

@@ -9,6 +9,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RegisterSuccessComponent } from "../registerSuccess/register-success.component";
 import { RoutingModule } from "src/app/routing/routing.module";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     declarations: [LoginPageComponent],
@@ -24,7 +25,8 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
           ]),*/
         RoutingModule,
         ErrorModule,
-        BrowserModule
+        BrowserModule,
+        CommonModule
     ],
     exports: [LoginPageComponent]
 })
