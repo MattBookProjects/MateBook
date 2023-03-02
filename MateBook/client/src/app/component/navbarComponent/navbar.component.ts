@@ -8,9 +8,8 @@ import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 export class NavbarComponent implements OnChanges { 
     @Input() isLoggedIn: boolean = false;
 
-    ngOnChanges(changes: SimpleChanges){
-        alert('navbar on changes');
-        alert(changes['isLoggedIn'].currentValue);    
+    ngOnChanges(changes: SimpleChanges){  
         this.isLoggedIn = changes['isLoggedIn'].currentValue;
+        alert('ngOnChanges');
     }
 }

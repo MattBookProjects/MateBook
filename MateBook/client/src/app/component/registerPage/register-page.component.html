@@ -2,19 +2,19 @@
     <div class="form">
         <div class="form-title">Register</div>
         <div class="form-row">
-            <input class="form-input" type="text" placeholder="username" [(ngModel)]="username">
+            <input class="form-input" id="username" type="text" placeholder="username" [(ngModel)]="username">
         </div>
         <div class="form-row">
-            <input class="form-input" type="password" placeholder="password" [(ngModel)]="password">
+            <input class="form-input" id="password" type="password" placeholder="password" [(ngModel)]="password">
         </div>
         <div class="form-row">
-            <input class="form-input" type="password" placeholder="repeat password" [(ngModel)]="repeat_password">
+            <input class="form-input" id="repeat_password" type="password" placeholder="repeat password" [(ngModel)]="repeat_password">
         </div>
         <div class="form-row">
-            <input class="form-input" type="text" placeholder="first name" [(ngModel)]="first_name">
+            <input class="form-input" id="first_name" type="text" placeholder="first name" [(ngModel)]="first_name">
         </div>
         <div class="form-row">
-            <input class="form-input" type="text" placeholder="last name" [(ngModel)]="last_name">
+            <input class="form-input" id="last_name" type="text" placeholder="last name" [(ngModel)]="last_name">
         </div>
         <error *ngIf="error" class="error-container" [message]="error"></error>
         <div class="button-container">
