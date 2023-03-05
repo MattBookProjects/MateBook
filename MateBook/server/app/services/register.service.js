@@ -1,5 +1,5 @@
 import encryption from "../utils/encryption.js"
-import database from "../../database.js"
+import database from "../database/database.js"
 import ResponseConst from "../constants/response.const.js";
 
 function RegsiterService(){

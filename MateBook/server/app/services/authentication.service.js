@@ -1,5 +1,5 @@
 import ResponseConst from "../constants/response.const.js";
-import database from "../../database.js";
+import database from "../database/database.js";
 
 function AuthenticationService(){
     this.authenticate = async (user_id, session_token) => {

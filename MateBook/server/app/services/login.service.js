@@ -1,6 +1,6 @@
 import ResponseConst from "../constants/response.const.js";
 import encryption from "../utils/encryption.js"; 
-import database from "../../database.js";
+import database from "../database/database.js";
 
 function LoginService() {
     this.login = async (username, password) => {
@@ -10,6 +10,7 @@ function LoginService() {
             try {
                 userExists = await database.userExists({ username: username, password_hash: password_hash });
             } catch {
+                console.log('user exists error login service')
                 rej(ResponseConst.RESPONSE_INTERNAL_ERROR);
             }
             if (!userExists) {
