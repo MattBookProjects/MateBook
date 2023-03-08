@@ -10,7 +10,7 @@ class Database {
     constructor(config) {
         this.userTable = new DBTable('USERS', config);
         this.sessionTable = new DBTable('ACTIVE_SESSION', config);
-        this.postTable
+        this.postTable = new DBTable('POST', config);
         this.config = config;
         this.createUser = (userObject) => {
             return this.userTable.create(userObject);
@@ -33,6 +33,10 @@ class Database {
 
         this.deleteSession = (sessionObject) => {
             return this.sessionTable.delete(sessionObject);
+        }
+
+        this.createPost = (postObject) => {
+            return this.postTable.create(postObject);
         }
     }
 }
