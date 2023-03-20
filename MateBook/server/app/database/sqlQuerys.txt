@@ -1,0 +1,16 @@
+only posts of followed users
+
+by time
+select p.id, p.author_id, p.content, p.is_edited, p.time from post as p join (select followed from follow where follower=20) as f on p.author_id=f.followed order by p.time
+
+
+by likes
+select p.id, p.author_id, p.content, p.is_edited, p.time from post as p join (select followed from follow where follower=20) as f on p.author_id=f.followed order by p.time
+
+
+
+ON p.author_id=f.friend_id
+
+
+
+SELECT f.user_id FROM USER_FRIENDSHIP f JOIN (SELECT f.friendship_id as friendship_id FROM USER_FRIENDSHIP f WHERE f.user_id=${user_id}) as ff on f.friendship_id=ff.friendship_id

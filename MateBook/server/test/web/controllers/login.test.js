@@ -1,5 +1,5 @@
 import login from '../../../app/web/controllers/login';
-import database from '../../../database';
+
 //import * as utils from '../utils.js';
 import { jest } from '@jest/globals';
 import ResponseConst from '../../../app/constants/response.const';

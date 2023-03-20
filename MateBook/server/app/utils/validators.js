@@ -16,6 +16,20 @@ function Validators(){
         }
         throw 'InvalidInputError';
     };
+/*
+    this.validateMediaInput = (media) => {
+        if (media){
+            if(Array.isArray(media)){
+                media.forEach(element => {
+                    if (element.type !== 'VIDEO' && element.type !== 'IMAGE'){
+                        throw 'InvalidInputError';
+                    }
+                    if ()
+                })
+            }
+        }
+        if (media.video)
+    }; */
 };
 
 const validators = new Validators();

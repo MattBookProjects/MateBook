@@ -1,5 +1,5 @@
 import logoutService from '../../app/services/logout.service';
-import database from '../../database';
+import database from '../../app/database/database';
 import {  jest } from '@jest/globals';
 import ResponseConst from '../../app/constants/response.const'
 

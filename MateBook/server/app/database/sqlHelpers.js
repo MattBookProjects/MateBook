@@ -45,6 +45,20 @@ function SqlHelpers(){
         keys.forEach(key => values.push(`${key}=${object[key]}`));
         return values.join(', ')
     }
+
+    this.convertToSqlDatetime = (date) => {
+        if (!date instanceof Date){
+            throw 'InvalidInputError';
+        }
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
+    }
 };
 
 const sqlHelpers = new SqlHelpers();
