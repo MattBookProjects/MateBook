@@ -11,6 +11,7 @@ import register from './web/controllers/register.js';
 import login from './web/controllers/login.js';
 import logout from './web/controllers/logout.js';
 import authenticationMiddleware from './web/middleware/authentication.middleware.js';
+import { postRouter } from './web/routes/post.router.js';
 
 
 const Connection = tedious.Connection;
@@ -66,6 +67,8 @@ export default function App(){
     app.get("/posts", (req, res) => {
 
     });
+
+    app.use("/api/posts/", postRouter);
 
     return app;
 };

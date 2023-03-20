@@ -24,6 +24,10 @@ const ResponseConst = {
     RESPONSE_INVALID_INPUT: {
         status: 400,
         message: 'Invalid input'
+    },
+    RESPONSE_PERMISSION_DENIED: {
+        status: 403,
+        message: 'Permission denied'
     }
 }
 

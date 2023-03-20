@@ -15,6 +15,8 @@ export class DBTable {
         return new Promise((res, rej) => {
             let error;
             let request = new Request(`INSERT INTO ${this.name} ${sqlHelpers.getSqlInsertStatementFromObject(rowObject)}`, (err, rowCount, rows) => {
+                //console.log('ROW COUNT ON CREATE: ' + rowCount);
+                //console.log('ROW 0' + rows)
                 if (err) {
                     error = true;
                 } else {

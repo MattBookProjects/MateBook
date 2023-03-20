@@ -1,6 +1,5 @@
 import register from '../../../app/web/controllers/register.js';
 import { jest } from '@jest/globals';
-import database from '../../../database.js';
 import registerService from '../../../app/services/register.service.js';
 import ResponseConst from '../../../app/constants/response.const.js';
 
