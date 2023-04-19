@@ -1,7 +1,7 @@
 import express from 'express';
-import { createPost } from '../controllers/post/createPost';
-import { getPosts } from '../controllers/post/getPosts';
-import authenticationMiddleware from '../middleware/authentication.middleware';
+import { createPost } from '../controllers/post/createPost.js';
+import { getPosts } from '../controllers/post/getPosts.js';
+import authenticationMiddleware from '../middleware/authentication.middleware.js';
 
 
 function PostRouter() {
@@ -9,7 +9,7 @@ function PostRouter() {
 
     router.post('/', authenticationMiddleware, createPost);
 
-    router.get('/', authenticationMiddleware, getPosts)
+    router.delete('/', authenticationMiddleware, getPosts);
 
     return router;
 }

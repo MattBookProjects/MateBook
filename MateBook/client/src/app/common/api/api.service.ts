@@ -14,6 +14,10 @@ export class ApiService {
 
     delete(url: string, body: any) {
         alert('api service delete');
-        return this.httpClient.request('DELETE', url, { body: body, headers:{ 'Content-Type': 'application/json'},observe: 'response'});
+        return this.httpClient.request('DELETE', url, { body: body, headers: { 'Content-Type': 'application/json'}, observe: 'response'});
+    }
+
+    get(url: string, body: any) {
+        return this.httpClient.request('GET', url, { body: body, headers: { 'Content-Type': 'application/json'}, observe: 'response'});
     }
 }

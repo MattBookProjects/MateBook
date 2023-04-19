@@ -44,6 +44,7 @@ class Database {
         }
 
         this.getPosts = (filter, sortedBy, offset, count, user_id) => {
+            console.log('count:' + count)
             return new Promise((res, rej) => {
                 let filterString, orderByString;
                 if (filter === 'followed'){
@@ -60,9 +61,10 @@ class Database {
                     orderByString = 'likes'
                 }
                 let error, result;
-                const request = new Request(`SELECT p.id as id, p.content as content, p.author_id as author_id, p.time as time, p.is_edited as is_edited, l.likes as likes, u.first_name as author_first_name, u.last_name as author_last_name FROM POST p ${filterString} LEFT JOIN (SELECT post_id, COUNT(id) as likes FROM LIKE_FOR_POST GROUP BY post_id) as l ON p.id=l.post_id JOIN USERS as u on p.author_id=u.id ORDER BY ${orderByString} DESC OFFSET ${offset} FETCH ${count} `,
+                const request = new Request(`SELECT p.id as id, p.content as content, p.author_id as author_id, p.time as time, p.is_edited as is_edited, l.likes as likes, u.first_name as author_first_name, u.last_name as author_last_name FROM POST p ${filterString} LEFT JOIN (SELECT post_id, COUNT(id) as likes FROM LIKE_FOR_POST GROUP BY post_id) as l ON p.id=l.post_id JOIN USERS as u on p.author_id=u.id ORDER BY ${orderByString} DESC OFFSET ${offset} ROWS FETCH NEXT ${count} ROWS ONLY`,
                 (err, rowCount, rows) => {
                     if (err){
+                        console.log(err);
                         error = true;
                     } if (rowCount > 0){
                         result = rows.map(row => sqlHelpers.convertSqlRowToObject(row))

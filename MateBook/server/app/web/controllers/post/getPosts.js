@@ -1,11 +1,12 @@
-import postService from "../../../services/post.service";
+import postService from "../../../services/post.service.js";
 
 
 export async function getPosts(req, res){
-    let filter = req.query('filter');
-    let sortedBy = req.query('sortedBy');
-    let perPage = req.query('perPage');
-    let pageIndex = req.query('pageIndex');
+   // let filter = req.query('filter');
+    //let sortedBy = req.query('sortedBy');
+   // let perPage = req.query('perPage');
+    //let pageIndex = req.query('pageIndex');
+    let filter, sortedBy, perPage, pageIndex;
     let user_id = req.body.auth.user_id;
 
     if(!filter || filter !== 'followed' && filter !== 'friends' && filter !== 'all'){
@@ -24,8 +25,8 @@ export async function getPosts(req, res){
     }
     let ret;
     try{
-        ret = await postService.getPosts(filter, sortedBy, perPage, pageIndex, user_id);
-        res.status(200).json(ret)
+        ret = await postService.getAll(filter, sortedBy, perPage, pageIndex, user_id);
+        res.status(200).json({posts: ret})
     }
     catch (err) {
         res.status(err.status).json({message: err.message});

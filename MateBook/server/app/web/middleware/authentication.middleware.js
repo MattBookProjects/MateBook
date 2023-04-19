@@ -2,8 +2,10 @@ import validators from "../../utils/validators.js";
 import authenticationService from "../../services/authentication.service.js";
 
 export default async function authenticationMiddleware(req, res, next){
+    console.log(req.body)
     const auth = req.body.auth;
     if(!auth){
+        console.log("missing auth")
         res.status(401).json({message: 'User not authenticated'})
         return
     }
@@ -13,6 +15,7 @@ export default async function authenticationMiddleware(req, res, next){
         session_token = validators.validateStringInput(auth.session_token);
     } catch {
         res.status(401).json({message: 'User not authenticated'});
+        console.log("invalid")
         return;
     }
     try{

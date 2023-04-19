@@ -1,6 +1,6 @@
-import validators from "../../../utils/validators"
-import ResponseConst from "../../../constants/response.const";
-import postService from "../../../services/post.service";
+import validators from "../../../utils/validators.js"
+import ResponseConst from "../../../constants/response.const.js";
+import postService from "../../../services/post.service.js";
 
 export async function createPost (req, res) {
     const author_id = req.body.auth.user_id;

@@ -13,7 +13,9 @@ export class AuthenticationService {
     }
 
     logIn(auth: {user_id: number, session_token: string}){
+        console.log('authentication service logIn');
         this.auth = auth;
+        
     }
 
     logOut(){

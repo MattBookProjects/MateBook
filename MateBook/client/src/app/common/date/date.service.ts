@@ -20,6 +20,10 @@ export class DateService {
         return formatedDate;
     }
 
+    dateToString(date: IDate): string {
+        return '' + date.day + ' ' + date.month + ' ' + date.year + ' ' + date.hour + ':' + date.minute;
+    }
+
     getMonthName(month: number): IMonth {
         if (month === 1){
             return 'jan';
