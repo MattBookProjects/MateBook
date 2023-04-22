@@ -44,7 +44,7 @@ export class DBTable {
             const request = new Request(`SELECT * FROM ${this.name} WHERE ${sqlHelpers.getSqlConditionalFromObject(rowObject)}`, (err, rowCount, rows) => {
                 if (err) {
                     error = err;
-                    console.log('ERROR: ' + err);
+                    console.log('EXISTS ERROR: ' + err);
                 }
                 if (rowCount > 0) {
                     result = true;

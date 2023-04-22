@@ -1,6 +1,8 @@
 import ResponseConst from "../constants/response.const.js";
 import encryption from "../utils/encryption.js"; 
 import database from "../database/database.js";
+import jwt from 'jsonwebtoken';
+import config from '../../config.js';
 
 function LoginService() {
     this.login = async (username, password) => {
@@ -22,27 +24,14 @@ function LoginService() {
             } catch {
                 rej(ResponseConst.RESPONSE_INTERNAL_ERROR);
             }
-            let session_exists;
-            try {
-                session_exists = await database.sessionExists({ user_id: user.id });
-            } catch {
-                rej(ResponseConst.RESPONSE_INTERNAL_ERROR);
-            }
-            if (session_exists) {
-                try {
-                    await database.deleteSession({ user_id: user.id });
-                } catch {
-                    rej(ResponseConst.RESPONSE_INTERNAL_ERROR)
-                }
-            }
-            const session_token = encryption.generateAuthToken();
-            try {
-                await database.createSession({ user_id: user.id, session_token: session_token });
-                res({ user_id: user.id, session_token: session_token });
-            } catch {
-                rej(ResponseConst.RESPONSE_INTERNAL_ERROR);
-            }
-
+            const { sign, verify } = jwt;
+            const token = sign({
+                user_id: user.id,
+                username: user.username,
+                first_name: user.first_name,
+                last_name: user.last_name
+            }, config.JWT_SECRET);
+            res(token);
         });
     }
 }

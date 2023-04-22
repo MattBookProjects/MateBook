@@ -1,1 +1,3 @@
-<div>Feature not implemented yet</div>
+<div class="posts-page">
+    <post *ngFor="let post of posts" [author]="post.author" [content]="post.content" [time]="post.time"></post>
+</div>

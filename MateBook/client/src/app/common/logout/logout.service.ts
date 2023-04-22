@@ -17,7 +17,7 @@ export class LogoutService {
             alert('on logout')
             this.router.navigateByUrl('/login')
         }
-        this.apiService.delete(this.urlConstant.LOGOUT_URL, { auth: this.authenticationService.auth}).subscribe({
+        this.apiService.delete(this.urlConstant.LOGOUT_URL).subscribe({
             next(response){
                 alert(response.status);
                 console.log(response);

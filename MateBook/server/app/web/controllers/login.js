@@ -1,6 +1,7 @@
 import validators from '../../utils/validators.js';
 import ResponseConst from '../../constants/response.const.js';
 import loginService from '../../services/login.service.js';
+import * as jwt from 'jsonwebtoken';
 
 export default async function login (req, res) {
     let username, password;
@@ -12,8 +13,8 @@ export default async function login (req, res) {
         return;
     }
     try {
-        let service_response = await loginService.login(username, password);
-        res.status(200).json({user_id: service_response.user_id, session_token: service_response.session_token});
+        let token = await loginService.login(username, password);
+        res.status(200).json({token: token});
     } catch (err) {
         res.status(err.status).json({message: err.message })
     }

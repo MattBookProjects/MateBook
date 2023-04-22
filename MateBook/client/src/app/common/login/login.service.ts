@@ -17,8 +17,8 @@ export class LoginService {
 
     async login (username: string, password: string): Promise<string | null> {
 
-      const onLoginSuccess = (user_id: number, session_token: string) => {
-        this.authenticationService.logIn({user_id: user_id, session_token: session_token});
+      const onLoginSuccess = (token: string) => {
+        this.authenticationService.logIn(token);
         this.router.navigateByUrl(''); 
       }
 
@@ -46,7 +46,7 @@ export class LoginService {
             if(response.status === 200){
               if(response.body){
                 let castedBody = response.body as ILoginResponse
-                onLoginSuccess(castedBody.user_id, castedBody.session_token)
+                onLoginSuccess(castedBody.token)
                 resolve(null);
               }
             } else {

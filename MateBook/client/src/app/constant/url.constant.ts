@@ -16,4 +16,8 @@ export class UrlConstant {
     get LOGOUT_URL(): string {
         return this.BASE_URL + '/logout'
     }
+
+    get POSTS_URL(): string {
+        return this.BASE_URL + '/posts'
+    }
 }
