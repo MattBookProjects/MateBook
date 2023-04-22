@@ -1,5 +1,6 @@
 import postService from "../../../services/post.service.js";
-
+import config from "../../../../config.js";
+import jwt from "jsonwebtoken";
 
 export async function getPosts(req, res){
    // let filter = req.query('filter');
@@ -7,7 +8,10 @@ export async function getPosts(req, res){
    // let perPage = req.query('perPage');
     //let pageIndex = req.query('pageIndex');
     let filter, sortedBy, perPage, pageIndex;
-    let user_id = req.body.auth.user_id;
+    const token = req.headers['authorization'].split(' ')[1];
+    const {sign, verify} = jwt;
+    const decoded = verify(token, config.JWT_SECRET);
+    const user_id = decoded.user_id;
 
     if(!filter || filter !== 'followed' && filter !== 'friends' && filter !== 'all'){
         filter ='followed';

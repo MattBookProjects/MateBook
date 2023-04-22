@@ -20,7 +20,7 @@ export class PostService {
 
 
         return new Promise((res, rej) => {
-            this.apiService.delete(this.urlConstant.POSTS_URL, { auth: this.authenticationService.auth}).subscribe({
+            this.apiService.get(this.urlConstant.POSTS_URL).subscribe({
                 next(response){
                     if(response.status === 200){
                         if(response.body){

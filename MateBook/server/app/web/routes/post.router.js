@@ -9,7 +9,7 @@ function PostRouter() {
 
     router.post('/', authenticationMiddleware, createPost);
 
-    router.delete('/', authenticationMiddleware, getPosts);
+    router.get('/', authenticationMiddleware, getPosts);
 
     return router;
 }
