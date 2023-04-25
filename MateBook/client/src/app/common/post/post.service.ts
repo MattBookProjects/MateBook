@@ -39,4 +39,8 @@ export class PostService {
             })
         })
     }
+
+    createPost(content: string):Promise<> {
+        
+    }
 }
