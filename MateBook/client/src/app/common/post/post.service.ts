@@ -40,7 +40,24 @@ export class PostService {
         })
     }
 
-    createPost(content: string):Promise<> {
-        
+    createPost(content: string): Promise<void> {
+        return new Promise((res, rej) => {
+            this.apiService.post(this.urlConstant.POSTS_URL, { content: content }).subscribe({
+                next(response){
+                    if(response.status === 201){
+                        res()
+                    }
+                },
+                error(error){
+                    if(error.status === 0){
+                        rej({message: "Connection error, please try again later"});
+                    } else if(error.status === 500){
+                        rej({message: "Internal server error, please try again later"})
+                    }
+                }
+            })
+
+        })
+      
     }
 }
