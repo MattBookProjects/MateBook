@@ -17,7 +17,7 @@ export class PostFormCompnent {
         try{
             this.postService.createPost(this.content);
         } catch (error){
-            this.error = error.message;
+            this.error = (error as {message: string}).message;
         }
     }
 }
