@@ -44,6 +44,7 @@ class Database {
         }
 
         this.getPosts = (filter, sortedBy, offset, count, user_id) => {
+            console.log('offset' + offset)
             console.log('count:' + count)
             return new Promise((res, rej) => {
                 let filterString, orderByString;
@@ -53,10 +54,12 @@ class Database {
                 else if (filter === 'friends'){
                     filterString = `JOIN (SELECT f.user_id FROM USER_FRIENDSHIP f JOIN (SELECT f.friendship_id as friendship_id FROM USER_FRIENDSHIP f WHERE f.user_id=${user_id}) as ff on f.friendship_id=ff.friendship_id GROUP BY f.user_id) AS f ON p.author.id=f.user_id`
                 } else {
+                    console.log("FILTER ALL")
                     filterString = ''
                 }
                 if (sortedBy === 'recent'){
                     orderByString = 'time'
+                    console.log("ORDER BY TIME")
                 } else {
                     orderByString = 'likes'
                 }
@@ -76,6 +79,7 @@ class Database {
                     if (error){
                         rej(error);
                     } else {
+                        result.forEach(entry =>  console.log(entry));
                         res(result);
                     }
                 });

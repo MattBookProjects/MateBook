@@ -18,13 +18,16 @@ export class PostService {
 
         const getDateService = () => this.dateService;
 
+        let url = this.urlConstant.POSTS_URL + "?filter=" + filter + "&sortedBy=" + sortedBy + "&perPage=" + perPage + "&pageIndex=" + pageIndex;  
+
 
         return new Promise((res, rej) => {
-            this.apiService.get(this.urlConstant.POSTS_URL).subscribe({
+            this.apiService.get(url).subscribe({
                 next(response){
                     if(response.status === 200){
                         if(response.body){
                             let castedBody = response.body as IPostsResponse; 
+                            console.log(castedBody.posts);
                             res(castedBody.posts.map(post => ({
                                 id: post.id,
                                 author: post.author,
@@ -38,5 +41,26 @@ export class PostService {
                 }
             })
         })
+    }
+
+    createPost(content: string): Promise<void> {
+        return new Promise((res, rej) => {
+            this.apiService.post(this.urlConstant.POSTS_URL, { content: content }).subscribe({
+                next(response){
+                    if(response.status === 201){
+                        res()
+                    }
+                },
+                error(error){
+                    if(error.status === 0){
+                        rej({message: "Connection error, please try again later"});
+                    } else if(error.status === 500){
+                        rej({message: "Internal server error, please try again later"})
+                    }
+                }
+            })
+
+        })
+      
     }
 }

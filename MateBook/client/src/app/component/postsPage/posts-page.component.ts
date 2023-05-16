@@ -21,15 +21,15 @@ export class PostsPageComponent implements OnInit{
     constructor(private dateService: DateService, private postService: PostService){}
 
     async ngOnInit(){
-        setTimeout(async () => { 
-            try{
-                this.posts = await this.postService.getPosts(this.filter, this.sortedBy, this.perPage, this.pageIndex);
-                this.loading = false;
-            } catch {
-                this.error = true;
-                this.loading = false;
-            }}, 1000);
-       
+       this.loadPosts();
+    }
+
+    async loadPosts(){
+        try {
+            this.posts = await this.postService.getPosts(this.filter, this.sortedBy, this.perPage, this.pageIndex);
+        } catch {
+            this.error = true;
+        }
     }
 
 }

@@ -36,7 +36,7 @@ function PostService(){
                     id: post.id,
                     content: post.content,
                     time: post.time,
-                    likes: post.likes,
+                    likes: post.likes === null ? 0 : post.likes,
                     is_edited: post.is_edited,
                     author: {
                         id: post.author_id,
