@@ -1,6 +1,11 @@
 <div class="posts-page-container">
     <div class="posts-page">
-        <post-form class="post-form-container"></post-form>
+        <select [(ngModel)]="filter" (ngModelChange)="loadPosts()">
+            <option value="followed">followed</option>
+            <option value="friends">friends</option>
+            <option value="all">all</option>
+        </select>
+        <post-form class="post-form-container" (onPost)="loadPosts()"></post-form>
         <post *ngFor="let post of posts" [author]="post.author" [content]="post.content" [time]="post.time"></post>
     </div>
 </div>
