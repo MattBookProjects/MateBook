@@ -6,6 +6,6 @@
             <option value="all">all</option>
         </select>
         <post-form class="post-form-container" (onPost)="loadPosts()"></post-form>
-        <post *ngFor="let post of posts" [author]="post.author" [content]="post.content" [time]="post.time"></post>
+        <post *ngFor="let post of posts" [author]="post.author" [content]="post.content" class="posts-container" [time]="post.time"></post>
     </div>
 </div>
